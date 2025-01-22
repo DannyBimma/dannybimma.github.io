@@ -39,227 +39,336 @@
 
     <section class="article-section">
       <article class="article">
-        <h2 class="article-heading">
-          Week 3: Putting a Pause on Actually Building the Web App and Starting
-          Over; Because I Can’t Half-Ass Anything and I’m !Sorry 😐
-        </h2>
+        <h2 class="article-heading">One Piece Chapter 1136 Recap</h2>
+        <h4>Some Things I Noticed and Really Want to Talk About</h4>
 
         <p class="article-creds">Author: DannyBimma</p>
         <p class="article-creds">Position: Editor in Chief</p>
-
-        <p>
-          There’s an ostensibly meaningless line during the 2nd act of the
-          Egghead Arc in the One Piece manga. It occurs when Vegapunk Stella
-          initially went missing in the Labophase, prompting all available
-          members of the Straw Hat crew to employ a binary search for the mad
-          scientist.
-        </p>
-
-        <p>
-          Luffy, in his naturally asinine earnestness, immediately enters Gear
-          5th and goes all out, assumes his strongest form as the God of the
-          Sun, all for the insurmountable task of finding one relatively
-          intelligent old man. I am Luffy; to build a simple web app, I need to
-          regain total confidence in true computer science, not just
-          programming—to reach my ultimate Code God form 😭✊🏾
-        </p>
-
-        <h2>Returning to the Basics</h2>
-
-        <p class="article-content">
-          I promise my preface to this is not based on some snobby, high-art
-          view of computer science. Although I do love it enough to excuse mild
-          snobbage and do believe that too much abstraction ruins the art that
-          it is. There, I said it. I kinda hate abstraction, and Decorators in
-          Python make my skin crawl 🤮
-        </p>
-
-        <p>
-          So there’s no way for me to feel comfortable working with React,
-          Angular, Django, Flask, or any other popular web building framework
-          without having a fundamental understanding of how they actually work.
-          And if I do end up being the very thing I sought to destroy by
-          building yet another JavaScript framework for one very specific use
-          case, then so be it.
-        </p>
-
-        <p>
-          And so, I decided it would be a good idea to download Rust onto my
-          machine, open up VS Code, and quickly build a simple CLI calculator
-          app that adds two numbers together—and does literally nothing else. An
-          app idea so simple I figured it would take me an hour at most,
-          including understanding all the Rust-ass-tic syntax I needed to learn
-          in order to build it in the first place. But figuring that was a
-          mistake.
-        </p>
-
-        <h2>Relearning with C</h2>
-
-        <p>
-          I built a basic “hello, world!” CLI program in C, with some minor
-          added functionality for shits and a little giggle. The code I wrote to
-          get this silly little program to do what I wanted it to do is
-          objectively ugly, even by the loosest of standards. But I had a tonne
-          of fun writing it.
-        </p>
-
-        <p>
-          As it turns out, I never really got over the ass-kicking trying to
-          build a calculator app in Rust gave me last week. Thus, I decided the
-          only logical next step for me to take was relearning all the basic
-          principles of computer science and programming from the very
-          beginning. Ultimately building a web application that tracks what days
-          anime/manga will drop and reminds users of the scheduling should have
-          been a relatively straightforward affair. But this is what happens
-          when you ask Luffy to do anything 😏
-        </p>
-
-        <p>
-          Datatypes, variables, loops, arrays, conditionals, and control flow
-          are the basic building blocks of practically every computer program in
-          existence. Solving the problem of printing “Hello, world!” to the
-          console in C presents a unique set of issues that you’d never
-          encounter if you were to build that same program in Python or
-          JavaScript.
-        </p>
       </article>
-
-      <p>
-        Remembering that variables aren’t just some magic box that can store
-        stuff—but are instead pointers that point to an address in memory; that
-        I can’t just snatch input out of a user’s ass without allocating the
-        <code>[fgets]</code> memory for it, that “string” isn’t really a
-        primitive datatype computers recognise—but that they are in fact a
-        string of chars as the name so aptly suggests. All felt incredibly
-        amazing to re-solidify as I free-styled the writing of this program.
-      </p>
-
-      <p>
-        It felt like and really reminded me of another segment of the Egghead
-        Arc in One Piece, namely, the Battleship Punching Bags flashback
-        chapter. That section of story shows how Garp, teaching new recruits as
-        an Admiral in the Navy, had a special training program to be undertaken
-        by his most promising students. The regimen involved them punching the
-        heavily armoured and reinforced hull of a marine battleship without the
-        use of Haki or Devil Fruit abilities.
-      </p>
-
-      <p>
-        Repeatedly throwing every ounce of their natural strength into punch
-        after punch, until they eventually made a dent in the ship. And after
-        years of consistent daily commitment to this routine, the dents
-        eventually became cavernous. Causing an entire Navy ship of war to fold
-        in on itself like a sheet of fail-paper thrown into a tumble dryer.
-        Ultimately, the point of Garp’s extremely bloody and brutal training
-        prohibiting the use of special powers, was to make his students that
-        much more formidable once they did employ their souped-up abilities in
-        battle.
-      </p>
-
-      <p>
-        The training Garp put Aokiji and Koby through may have been utterly
-        unnecessary to the end of training young recruits to be good Marines.
-        However, his goal was never to make his students good enough. His goal
-        was always to make them the absolute best the Navy had to offer.
-      </p>
-
-      <p>
-        Building basic computer programs like “Hello, world!” using low-level
-        languages like C is totally unnecessary to the end of learning to
-        program in today’s AI-powered world. It’s precisely akin to possessing
-        the Hie Hie no Mi, or an unusual amount of Haki, and choosing to punch
-        the reinforced hull of a fucking battleship in an obsessive and bruising
-        effort to master the basics of throwing the perfect punch. And that’s
-        precisely what I’m going to do!!
-      </p>
-
-      <p>
-        What I have so far can be considered v1.1, as I do plan on expanding it
-        to be the ultimate “Hello, world!” program on the internet as time goes
-        on. Over the coming weeks, I’ll add to it and improve the code until
-        this program reaches its final form. I created what will end up being a
-        huge mono-repo of C code on GitHub for any fellow programmers who want
-        to follow this nonsense; it’s going to be a gargantuan mess, and I think
-        it’ll be hilarious to see just how mountainous the mess I create will be
-        in about a year of commits to this repo.
-      </p>
-
-      <h2 class="article-heading">Code Talk</h2>
-
-      <p>
-        One of the first improvements I want to make to my code immediately
-        after writing this post is the functionality I wrote to check for a
-        positive or negative response from the user:
-      </p>
-
-      <img
-        class="content-img"
-        src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F5336e164-7216-4081-8cf2-8da9effcdc9f_3310x1534.heic"
-        alt="my code block"
-      />
-
-      <p>
-        Even though my code here has a face only a mother could appreciate, I am
-        actually quite proud of it. Given C’s lack of string methods and it not
-        even recognising strings as a primitive datatype out of the box. My
-        solution of initialising a response value variable and then using
-        control flow to set the value of that variable based on user response
-        was so mentally stimulating it made my technical brain cum.
-      </p>
-
-      <p>
-        And the only immediate improvements I want to make right now is moving
-        that mess of a block of control flow code to a separate function, or
-        maybe even an external file. And then maybe I’ll ask ChatGPT for
-        suggestions on making that formula more concise, because right now I
-        can’t really stand to look at it and I’m quite literally its mother.
-      </p>
-
-      <h2>What of the Animanga App</h2>
-
-      <p>
-        Trailing off on a random side quest to learn and build a bunch of random
-        things may seem like a very counterintuitive way to build software. And
-        for all intents and purposes, it is!! But for me, it’ll all be a part of
-        the process. A dear friend of mine has a deep love for completing all
-        the side missions in open-world games and opening every chest in a
-        dungeon. Thinking of both her and Frieren made me realise that when
-        we’re trying to go somewhere, getting distracted by the things we love
-        along the way is more than okay. Matter of fact, it’s the only time we
-        can experience the wonderful cliché of enjoying the journey just as much
-        or even more so than the destination.
-      </p>
-
-      <p>
-        So I’ll never forget what my ultimate goal is here; I just no longer
-        care if it takes 6 months or 6 years. I don’t mind being the Oda
-        Eiichiro of writing code, on the contrary. It would be an honour to
-        spend the next 27 years building a simple web application for all the
-        Nakama I met on Threads 😭🏴‍☠️
-      </p>
-
-      <p>
-        I’m mostly kidding, but in all seriousness, my autistic brain seriously
-        underestimated the time it would take and the skills I’d need to relearn
-        in order to build such a thing. And to be fair, I could use my latent
-        knowledge, hack together something using a bunch of already established
-        libraries and frameworks, and then maybe ask ChatGPT’s or Claude’s pro
-        models to fill the gaps. Doing that, I promise I could have some
-        semblance of a working anime and manga tracking application deployed to
-        the web in less than a month. But by the end of it, I would have learned
-        nothing and I’d be ashamed of all the dirty things I’d done to get
-        there.
-      </p>
-
-      <p>
-        However long the journey of me ultimately building this thing the right
-        way takes, I’m now more excited than ever before to simply enjoy
-        learning computer science and then immediately attempting to build fun
-        pieces of software with the things I learn. Love is the most important
-        aspect to consider when it comes to doing difficult things—only when
-        it’s involved can frustrations be transmuted into pure elation 💙!!
-      </p>
     </section>
+
+    <h1>One Piece Chapter 1136 Recap</h1>
+
+    <h2>Yamo's Pilgrimage</h2>
+    <p>
+      The chapter kicks off with what I believe to be the cornerstone, and most
+      symbolic entry into Yamato's "Holy Inari Shrine Pilgrimage." At 22 volumes
+      long, it's shaping up to be the longest cover story we've ever had in One
+      Piece, and this particular entry feels more like the pre-cum before climax
+      than any other has thus far.
+    </p>
+
+    <h2>Who Could It Be?</h2>
+    <p>
+      On my initial read, I quite literally lol'd out loud at the design of the
+      criminal's hideout. Like Geez Louise, Oda!! I wonder just Who's Who the
+      thief could be!? If only there were some sort of ostensible sign outside
+      of the hideout that would give us a clue as to WHO it could be. I'm sure
+      we'll all be very surprised by the reveal of the culprit in the next
+      chapter, because there's just no way anyone could figure it out now!!
+    </p>
+
+    <p>
+      All jokes aside, it's obvious that Oda was having a little fun
+      implementing his version of the old cartoon trope; where baddy and
+      superhero hideouts are literally made in their image. It's honestly
+      appalling how long their enemies took to find Xavier's Mansion every time
+      it was attacked... I mean, it was right fucking there... with a golden
+      signpost slapped on the front!! HOW DID ANYONE EVER MISS IT??!!
+      Nonetheless, I digress. As there's also some deeper meaning to the
+      egregiously boisterous hideaway.
+    </p>
+
+    <p>
+      On my second read-through of the chapter, I remembered something
+      incredible!! After Who's Who got dishonourably discharged as a CP9 agent,
+      Kaido gave him grace and saved his life. He gave him purpose. A reason to
+      be when he was probably at the lowest point in his life. His name does
+      evoke some sense of an identity crisis, one even removed from the
+      dichotomy of a secret agent with little to no relations outside of work.
+      What this man went through is the fictional equivalent of being a CIA
+      Special Agent tasked with organising the transport of a nuclear warhead,
+      but then some random dude with red hair pulls up and steals it from you. I
+      mean, you'd be one to talk since your hair is hot pink in hue. But you
+      obviously lament the irony in being robbed of a WMD and losing your job to
+      someone with the exact same fashion sense as you... that's gotta be tough
+      to live with.
+    </p>
+
+    <p>
+      So considering everything he's been through, it's painfully obvious how
+      much Who's Who really idolised Kaido. And once you see that, you'll
+      realise his hideout isn't just a joke; it was designed to pay homage to
+      the fallen Onigashima. It's Who's Who's little kitty version of what his
+      big dragon daddy had.
+    </p>
+
+    <p>
+      But then it goes even further: the way Yamato is pulling up to the spot
+      with her clique is very reminiscent of the way Luffy finally pulled up to
+      Kaido's Roof with his crew.
+    </p>
+
+    <p>
+      In my opinion, the biggest point of Yamo's cover story is to have him
+      follow in the exact footsteps of Kouzuki Oden. So while Oden part 2 is on
+      this journey around Wano rounding up various criminals. Just remember that
+      the original Oden's vassals were completely comprised of misfits, the
+      misguided, and people who society considered to be worthless individuals.
+      Pour one out for my guy, Ashura Doji.
+    </p>
+
+    <h2>Luffy's Dinosaur Meat (not sexual, unless...)</h2>
+    <p>
+      At the start of the chapter proper, Luffy is chowing down on some moose
+      meat like a cow in heat!! And it took every ounce of my willpower not to
+      go searching through 1,000+ chapters of this manga to see when and where
+      the fuck Luffy ate a damn dinosaur. It's such a strange and unexpected
+      declaration that if Sanji was the one to say it, I'd simply assume he had
+      some offscreen fun with Ulti back in Wano Kuni.
+    </p>
+
+    <p>
+      Luckily, my soulmate and I had a chat about it, and we concurred that if
+      Luffy was ever depicted eating a dino in One Piece; it could've only
+      happened 1 of 2 times. Either in his backstory growing up in the jungle,
+      where we do know Saber-toothed Tigers lived. Or in Little Garden, where we
+      do know Luffy met a couple of dino bois. So I went looking, and BY GOLLY
+      Luffy really did eat and freaking dinosaur for lunch!! Not only this; the
+      very dino Luffy was eating had previously eaten him. Oda perfectly
+      depicted the Law of Equivalent Exchange and The Cycle of Life in a single
+      manga page and most fans completely forgot about it, shame on us!!
+    </p>
+
+    <p>
+      I'm even more ashamed I didn't immediately recall that page in Little
+      Garden, as it was specifically referenced many times during the Egghead
+      Arc. Glaringly, Oda even recreated the scene of Broggy chopping off the
+      dinosaur's head to free Luffy from its tonsils; with the selfsame act
+      being done to the Sand-Worm Gorosei, Saint Shepherd Ju. Peter.
+    </p>
+
+    <h2>Race Relations at a Party</h2>
+    <p>
+      During the banquet celebrations, a random giant exclaims at Jimbei that
+      his skin "really is blue!!" And I just want to personally thank Oda, for
+      perfectly illustrating how every Black person feels when we have to take a
+      pause and process whether a question is laced with racism before deciding
+      how to answer. This look on Jimbei's face is exactly how every Black man
+      feels whenever some White dude exclaims "wow... you really know how to
+      play ball, don't cha!!"
+    </p>
+
+    <p>
+      Just standing there and wondering if this person is genuinely impressed by
+      my mediocre basketball skills, or if I should just tell them to fuck off
+      and get on with my day. Thank you again, Oda, for perfectly illustrating a
+      major part of the Black experience.
+    </p>
+
+    <p>
+      Also, Sanji. Please. My Guy. I know they are all giants, but most of them
+      are also all children!! You are in a literal School Zone, Sir!! Please,
+      control your urges!! Trust me when I say your character WILL NOT survive
+      the road you are going down!! We forgave you for Fish-man Island, we
+      forgave you for Dressrosa, we even forgave you putting Robin in mortal
+      danger all because you couldn't stop getting aroused by a lady who was
+      actively trying to kill you. We won't forgive this, Sanji. Not the kids,
+      please... don't do it.
+    </p>
+
+    <h2>Both Gerd and Rodo are Kinky Giants</h2>
+    <p>
+      Ever since the introduction of the New Giant Warrior Pirates in Egghead.
+      It seemed kinda strange to me how much Gerd kept piling onto Rodo. The
+      very first words we hear out of her mouth as a character are an
+      exclamation of how much she hates Rodo. Practically every single time
+      Rodo's name is even uttered in her earshot after that, she responds
+      unprovoked with some version of "yeah, he should just die already!" If the
+      opportunity ever presents itself to punish Rodo, she is the one leading
+      the charge with her axe. And honestly, I think there's A LOT of
+      self-projection in her actions.
+    </p>
+
+    <p>
+      Gerd's sheer disgust towards Rodo comes from a place of guilt she has for
+      possessing what she knows to be the same feelings: a strong desire for
+      some human loving. Who can even blame them as giants? We've really got it
+      going on in the human realm; even the Bible says many angels wanted to
+      suck on some hu... nvm.
+    </p>
+
+    <p>
+      The point is, Oda is trying to illustrate the differences in healthy and
+      unhealthy attraction/lust. Rodo goes about expressing his desires in the
+      most carnal and disgusting ways possible. With actual slavery and human
+      trafficking. Gerd, on the other hand, is a little more respectful with her
+      urges, using her spare time to make sexy human-sized clothes JUST IN CASE
+      some humans appear before her in need of clothing. And in her defence,
+      this very unlikely scenario did actually play out; the Straw Hats are very
+      thankful for their Viking drip. But ya know, it's not weird or anything.
+      She just really likes dressing up humans, and I'm guessing many humans
+      also enjoy getting dressed up by her... huh
+    </p>
+
+    <h2>The Sun God Lore</h2>
+    <p>
+      This is why I love writing! This is why I love reading! This is why I love
+      storytelling! This is why I love manga!! For weeks, fans have been made to
+      scratch their heads as to why this Sun God business was becoming so
+      prevalent all of a sudden. We went from hearing nothing about a Sun God
+      for 800 chapters, then we got a single mention of one in Skypia, and now
+      there's a new character claiming to be the Sun God every single week!! But
+      learning that it's a doctored and misinterpreted legend exclusive to the
+      land of Elbaph makes everything else make sense.
+    </p>
+
+    <p>
+      Kuma, Rodo, and Loki all have extremely different interpretations of the
+      Sun God, and it causes each of them to express their faith very
+      differently. Eerily similar to real-life religion, it's worth noting.
+    </p>
+
+    <p>
+      Ostensibly, the biggest irony in all of this is the pure beauty of Luffy's
+      idiocy. Of course, every single person on Elbaph right now has their own
+      vision of what the Sun God should be. Everyone, except the one person who
+      IS actually the Sun God's reincarnation. For 800 years, the world has been
+      waiting for the Sun God's next incarnation, but this time it falls to the
+      one person on the planet who couldn't give any less of a fuck... my gosh,
+      I love this man!!
+    </p>
+
+    <p>
+      Luffy: *Eats the Sun God fruit* - *Becomes the Sun God incarnate*
+      <br />
+      Random person with eyes: Hey, are you Nika!? Cause you look a lot like
+      Nika, my guy!!
+      <br />
+      Luffy: No!! Obviously, the Sun God has nothing to do with me. It's not
+      like I'm his literal third coming or anything.
+    </p>
+
+    <h2>The Other Sun God</h2>
+    <p>
+      For me, this chapter absolutely confirms that Loki is a good guy at best
+      and an anti-hero archetype at worst. He was either framed by someone else,
+      or even himself, in order to secretly save Elbaf from an unknown
+      fate---I.E. the same thing that happened to Luffy when it was prophesied
+      that he would destroy Fish-man Island. The prophecy wasn't false; its
+      vision was simply misinterpreted.
+    </p>
+
+    <p>
+      The giants say that Loki's father, King Herald, prophesied that he would
+      be killed by his own son at least 5 years before Loki was even born. That
+      seems VERY strange to me. That seems like King Herald PLANNED to be killed
+      by his own son. It's also interesting to play your own game of Devil's
+      Advocate with Loki. Reread the chapter and try to come up with your own
+      valid explanations for the named crimes he is accused of committing. I
+      promise, you will surprise yourself by how quickly ALL of them can be
+      explained away with minimal effort. And I believe these crimes were
+      cherry-picked by Oda for this exact reason.
+    </p>
+
+    <p>
+      He killed the royal "Lucky Horse" when he was 2? Maybe the damn horse just
+      wasn't that lucky. He's accused of killing the animals in the underworld,
+      but when we visit him there, they all still look very alive, healthy, and
+      he even refers to them as friends. Something definitely is amiss with this
+      Loki narrative; maybe his father was the trickster we're claiming Loki to
+      be. Maybe his father gave him the Alt Sun God Devil Fruit and tasked him
+      with carrying their secret to the grave. All in an effort to save Elbaf
+      from a truth the populace maybe isn't ready for. And what truth could that
+      be...
+    </p>
+
+    <h2>My Brainrot Sun God Theory</h2>
+    <p>
+      I'll just go right ahead and tell it to you straight. Every single "god"
+      we've met in the One Piece series turned out to be fake. It's almost as if
+      Oda is writing OP with the same narrative the original Scooby-Doo cartoon
+      attached to monsters... underneath the masks and costumes, they're all
+      just humans. From Enel, to Gan Fall, to the gods in Rodo's diorama; every
+      single time we were shown the gods were not real. Why would the Sun God be
+      any different?
+    </p>
+
+    <p>
+      What if the reason people believed the Sun God appeared before great
+      worldly change. Is because in the hopelessness of a cataclysmic event, the
+      ancients of the One Piece world looked up to the heavens and saw the
+      clouds to be something they are not. They mistook the sounds of
+      ear-piercing explosions to be uncontrollable godly laughter. It kinda
+      gives me the chills to think about. But for a literal
+      larger-than-the-giants figure, it is a bit peculiar that no one can recall
+      the face, or even facial features on Nika. The only thing people remember
+      about him was that he was always draped in clouds and smiling. Looking to
+      the sky in hopeless situations is a primordial human coping mechanism...
+    </p>
+
+    <p>
+      Another interesting thing to support my crack-pot theory. Is the fact that
+      none of the Mythical Zoan Type Devil Fruits have been shown to have
+      counterparts in the real world. Marco is the Mythical Phoenix, but no such
+      bird actually exists in the OP universe. Kaido is the Mythical Azure
+      Dragon, but the Chinese-mythos dragons don't exist in OP either. Matter of
+      fact, the only real dragons we know in One Piece are the artificial ones
+      Vegapunk made using dinosaur DNA, and Luffy's deadbeat father. Even
+      Sengoku has the Devil Fruit of the Mythical Deity, Buddha; but there's
+      just no way Buddha actually exists in One Piece.
+    </p>
+
+    <p>
+      So again I ask: why would the Mythical Sun God, Nika, be any different?
+    </p>
+
+    <h2>Luffy: A Yonko All Grown Up</h2>
+    <p>
+      It came as a pleasant shock to me that Luffy actually confided in the
+      Straw Hats about his secret meeting with Loki. I'm not exactly sure, maybe
+      I'm overthinking it; but Luffy has markedly been acting like a "real
+      captain" more and more, ever so subtly, every single week since the time
+      skip. But in this chapter I was struck with an incredible sense of
+      grown-up responsibility being exuded from shonen's favourite idiot.
+    </p>
+
+    <p>
+      Since when did my Rubber Gawd have the wherewithal to inform people more
+      responsible than him about the potentially foolish decisions he makes as a
+      Yonko Captain?? Luffy is now proactively shielding his crew from his
+      natural stupidity. As a Yonko, he has been categorised as an entity that
+      is powerful enough to reshape the world with every decision he makes.
+      Luffy seems to actually understand this, he's no longer acting as if his
+      actions affect he and his crew alone. And this has been the most
+      incredible slab of character development I’ve seen since Sanji started
+      prioritising his friends over tiddies.
+    </p>
+
+    <p>
+      The Straw Hat Commanders deciding as a group to free Loki is the best way
+      this could have played out. This is a decision that will have global
+      ramifications, and the crew will be stronger to deal with the consequences
+      of a decision they made it together. Unlike the time Luffy decided to
+      scrap the Going Merry, give all their gold to an underwear-clad dude to
+      build a new ship, and didn’t feel the need to inform anyone on the crew
+      about it 🤦🏾‍♂️
+    </p>
+
+    <h2>In Summation</h2>
+    <p>
+      As is usually the case, the latest One Piece chapter is undoubtedly the
+      greatest chapter in the series to date. I love this streak that Oda has
+      been on for the past 27 years or so 😌
+    </p>
+
+    <p>
+      Elbaph, in my opinion, is going to be one of the longest and most epic
+      arcs in One Piece. It very well should be, the only other island that has
+      been hyped up and teased more throughout the entire series is Laughtale
+      itself. This chapter alone dropped enough lore for Oda to spend the next
+      100 hashing out; and I absolutely cannot wait to experience all of it ❤️
+    </p>
 
     <div class="footer-bottom">
       <p>
