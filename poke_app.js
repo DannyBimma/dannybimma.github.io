@@ -53,12 +53,10 @@ class PokedexAPI {
       const mewPokemon = await this.getPokemon(151);
       if (mewPokemon) {
         boosterPack.push(mewPokemon);
-        count--;
       }
     }
 
-    // add 1 to count because JS is stupid and i don't know why 🤦🏾‍♂️
-    while (boosterPack.length < count + 1) {
+    while (boosterPack.length < count) {
       const pokeId = Math.floor(Math.random() * this.allPokemon) + 1;
       const pokemon = await this.getPokemon(pokeId);
       if (pokemon && !boosterPack.some((p) => p.id === pokemon.id)) {
