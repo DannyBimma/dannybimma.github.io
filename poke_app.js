@@ -103,3 +103,11 @@ async function openBoosterPack() {
       '<p class="error">⛔️: Your Booster Pack was a dud, bud!! Do try again 🥹</p>';
   }
 }
+
+// Get current year for footer
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+// Burger menu
+document.querySelector(".navbar-toggle").addEventListener("click", function () {
+  document.querySelector(".nav-menu").classList.toggle("active");
+});

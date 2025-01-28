@@ -33,12 +33,23 @@
     </div>
 
     <hr />
-    <a href="index.html">🏠</a> <br />
-    <a href="about.html">About</a> <br />
-    <a href="articles.html">Articles</a> <br />
-    <a href="apps.html">Apps</a> <br />
-    <a href="pwr-lvl.html">Power Level Calculator</a> <br />
-    <a href="poke_app.html">Poképlay Booster-Packs</a>
+    <!-- Burger menu -->
+    <button class="navbar-toggle">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">🏠</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="apps.html">Apps</a></li>
+        <li><a href="pwr-lvl.html">Power Level</a></li>
+        <li><a href="poke_app.html">Poképlay</a></li>
+      </ul>
+    </nav>
     <hr />
 
     <section class="article-section">
@@ -57,5 +68,11 @@
       <button onclick="openBoosterPack()">Open Pack</button>
     </div>
     <div id="results"></div>
+
+    <div class="footer-bottom">
+      <p>
+        &copy; <span id="currentYear"></span> DannyBimma. All rights reserved.
+      </p>
+    </div>
   </body>
 </html>
