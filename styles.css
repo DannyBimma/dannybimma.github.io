@@ -1,3 +1,46 @@
+/* nav-bar styles */
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Style the navbar container */
+.navbar {
+  width: 100%;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+/* Style the unordered list */
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* Modern way to add space between items */
+}
+
+/* Style the links */
+.navbar a {
+  color: rebeccapurple;
+  text-decoration: underline;
+  padding: 0.5rem 1rem;
+  border-radius: 4px; /* Rounded corners for hover effect */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+/* Hover effect */
+.navbar a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Visited link style */
+.navbar a:visited {
+  color: grey;
+}
+
 body {
   margin: 0;
   padding: 20px;
@@ -51,7 +94,7 @@ hr {
   color: #a0aec0;
 }
 
-/* App page styles */
+/* Pwr Lvl app page styles */
 
 input {
   width: 100%;
