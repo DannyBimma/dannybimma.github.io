@@ -1,21 +1,13 @@
 /* nav-bar styles */
 
 .navbar {
-  /* margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100%;
-  padding: 1rem;
-  background-color: white; */
   width: 100%;
   padding: 1rem;
   background-color: white;
-  position: relative; /* For positioning the hamburger menu */
 }
 
 .navbar ul {
   list-style: none;
-  display: flex;
   justify-content: center;
   gap: 1rem; /* Add space between items */
 }
@@ -34,49 +26,6 @@
 
 .navbar a:visited {
   color: grey;
-}
-
-/* Burger menu styles */
-.navbar-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  background-color: rebeccapurple;
-  margin: 5px 0;
-  border-radius: 3px;
-}
-
-/* Responsive mobile styles */
-
-@media screen and (max-width: 768px) {
-  .navbar-toggle {
-    display: block; /* Show burger menu on mobile */
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-  }
-
-  .nav-menu {
-    display: none; /* Hide main menu on mobile */
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 0;
-  }
-
-  /* Show menu with active class for JS */
-  .nav-menu.active {
-    display: flex;
-  }
 }
 
 /* Main styles */
