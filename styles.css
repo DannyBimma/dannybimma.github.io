@@ -1,37 +1,9 @@
 /* nav-bar styles */
 
-.navbar {
-  width: 100%;
-  padding: 1rem;
-  background-color: white;
-}
-
-.navbar ul {
-  list-style: none;
-  justify-content: center;
-  gap: 1rem; /* Add space between items */
-}
-
-.navbar a {
-  color: rebeccapurple;
-  text-decoration: underline;
-  padding: 0.5rem 1rem;
-  border-radius: 4px; /* Round corners on hover */
-  transition: background-color 0.3s; /* Transition on hover */
-}
-
-.navbar a:hover {
-  background-color: #f0f0f0;
-}
-
-.navbar a:visited {
-  color: grey;
-}
-
-/* NEW NAV */
 .nav {
   background-color: gray;
   overflow: hidden;
+  border-radius: 4px;
 }
 
 .nav a {
@@ -42,6 +14,8 @@
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
 .nav a:hover {
