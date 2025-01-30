@@ -50,5 +50,15 @@ function pwrLvlCalc() {
     `;
 }
 
+// Nav bar
+function burgerMenu() {
+  var x = document.getElementById("nav-bar");
+  if (x.className === "nav") {
+    x.className += " responsive";
+  } else {
+    x.className = "nav";
+  }
+}
+
 // Get current year for footer
 document.getElementById("currentYear").textContent = new Date().getFullYear();
