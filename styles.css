@@ -18,21 +18,19 @@
 }
 
 /* Night mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #1a1a1a;
-    --text-color: #f2f2f2;
-    --nav-bg: #333333;
-    --nav-text: #f2f2f2;
-    --nav-hover: rebeccapurple;
-    --heading-color: #b388ff;
-    --border-color: #555;
-    --footer-color: #a0aec0;
-    --input-bg: #333333;
-    --input-border: #555;
-    --result-bg: #333333;
-    --card-border: #555;
-  }
+[data-theme="dark"] {
+  --bg-color: #1a1a1a;
+  --text-color: #f2f2f2;
+  --nav-bg: #333333;
+  --nav-text: #f2f2f2;
+  --nav-hover: rebeccapurple;
+  --heading-color: #b388ff;
+  --border-color: #555;
+  --footer-color: #a0aec0;
+  --input-bg: #333333;
+  --input-border: #555;
+  --result-bg: #333333;
+  --card-border: #555;
 }
 
 /* nav-bar styles */
