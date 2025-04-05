@@ -1,15 +1,54 @@
-/* nav-bar styles */
+/* Import Space Mono font */
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 
+/* CSS Variables for theming */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --nav-bg: gray;
+  --nav-text: #f2f2f2;
+  --nav-hover: rebeccapurple;
+  --heading-color: rebeccapurple;
+  --border-color: #333;
+  --footer-color: #a0aec0;
+  --input-bg: #f5f5f5;
+  --input-border: #ddd;
+  --result-bg: #fff;
+  --card-border: #ccc;
+}
+
+/* Night mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #1a1a1a;
+    --text-color: #f2f2f2;
+    --nav-bg: #333333;
+    --nav-text: #f2f2f2;
+    --nav-hover: rebeccapurple;
+    --heading-color: #b388ff;
+    --border-color: #555;
+    --footer-color: #a0aec0;
+    --input-bg: #333333;
+    --input-border: #555;
+    --result-bg: #333333;
+    --card-border: #555;
+  }
+}
+
+/* nav-bar styles */
 .nav {
-  background-color: gray;
+  background-color: var(--nav-bg);
   overflow: hidden;
   border-radius: 4px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .nav a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: var(--nav-text);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -19,12 +58,12 @@
 }
 
 .nav a:hover {
-  background-color: rebeccapurple;
+  background-color: var(--nav-hover);
   color: white;
 }
 
 .nav a.active {
-  background-color: rebeccapurple;
+  background-color: var(--nav-hover);
   color: white;
 }
 
@@ -59,37 +98,39 @@
 }
 
 /* Main styles */
-
 body {
   margin: 0;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: "Space Mono", Arial, monospace;
   line-height: 1.6;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .article-title {
-  color: rebeccapurple;
+  color: var(--heading-color);
   text-align: center;
 }
 
 .header-heading {
-  color: rebeccapurple;
+  color: var(--heading-color);
   text-align: center;
 }
 
 hr {
   border: none;
   height: 1px;
-  background-color: #333;
+  background-color: var(--border-color);
   margin: 20px 20px; /* Space above and below */
 }
 
 .article-header {
-  color: rebeccapurple;
+  color: var(--heading-color);
 }
 
 .article-heading {
-  color: rebeccapurple;
+  color: var(--heading-color);
   text-align: center;
 }
 
@@ -113,19 +154,21 @@ hr {
 .footer-bottom {
   margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 1px solid #4a5568;
+  border-top: 1px solid var(--border-color);
   text-align: center;
-  color: #a0aec0;
+  color: var(--footer-color);
 }
 
 /* Pwr Lvl app page styles */
-
 input {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--input-border);
   border-radius: 4px;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  font-family: "Space Mono", Arial, monospace;
 }
 
 button {
@@ -135,6 +178,7 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-family: "Space Mono", Arial, monospace;
 }
 
 button:hover {
@@ -149,13 +193,13 @@ label {
 #result {
   margin-top: 1rem;
   padding: 1rem;
-  background-color: #fff;
+  background-color: var(--result-bg);
   border-radius: 4px;
   display: none;
 }
 
 .calculator {
-  background-color: #f5f5f5;
+  background-color: var(--input-bg);
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -166,19 +210,50 @@ label {
 }
 
 .meme-img {
-  height: 400px;
-  width: 400px;
+  max-width: 100%;
+  height: auto;
+  max-height: 400px;
+  width: auto;
 }
 
 /* Poke-app page styles */
-
 .pokemon-card {
-  border: 1px solid #ccc;
+  border: 1px solid var(--card-border);
   padding: 10px;
   margin: 10px 0;
   border-radius: 5px;
+  background-color: var(--result-bg);
 }
+
 .error {
   color: red;
   font-weight: bold;
+}
+
+/* Responsive improvements */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .header-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .calculator {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
 }
