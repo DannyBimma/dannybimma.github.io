@@ -1,13 +1,10 @@
-// Night mode detection and toggle
+// Night mode preference detection
 function initNightMode() {
-  // Check if user has a saved preference
   const savedTheme = localStorage.getItem("theme");
 
   if (savedTheme) {
-    // Apply saved preference
     document.documentElement.setAttribute("data-theme", savedTheme);
   } else {
-    // Check system preference
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
