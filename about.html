@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="About Danny Bimma - Web developer, programmer, and tech enthusiast. Get in touch and learn more about my journey."
+    />
+    <meta name="author" content="Danny Bimma" />
+    <meta
+      name="keywords"
+      content="Danny Bimma, web developer, programmer, about, contact, biography"
+    />
+
+    <title>About - DannyBimma's Blog</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="index.html" class="logo">dannybimma.dev</a>
+
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="articles.html">Articles</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+
+        <div class="nav-controls">
+          <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+          <button class="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="about-section">
+        <header class="page-header">
+          <h1>About Me</h1>
+          <p>Developer, problem solver, and terminal enthusiast.</p>
+        </header>
+
+        <div class="bio-content">
+          <div class="bio-text">
+            <h2>Hello, I'm Danny Bimma</h2>
+            <p>
+              Welcome to my corner of the internet! I'm a passionate web
+              developer with a love for clean code, efficient solutions, and the
+              terminal aesthetic. My journey in programming started with
+              curiosity and has evolved into a deep appreciation for both the
+              art and science of software development.
+            </p>
+
+            <h3>What I Do</h3>
+            <p>
+              I specialize in building web applications using modern
+              technologies, with a particular focus on:
+            </p>
+            <ul style="margin: 1rem 0; padding-left: 2rem">
+              <li>
+                <strong>Frontend Development:</strong> HTML5, CSS3, JavaScript
+                (ES6+), and various frameworks
+              </li>
+              <li>
+                <strong>Backend Development:</strong> Server-side logic, APIs,
+                and database design
+              </li>
+              <li>
+                <strong>System Programming:</strong> C programming and low-level
+                optimization
+              </li>
+              <li>
+                <strong>Developer Tools:</strong> Creating utilities that make
+                developers' lives easier
+              </li>
+            </ul>
+
+            <h3>My Philosophy</h3>
+            <p>
+              I believe in writing code that is not only functional but also
+              maintainable, readable, and efficient. Whether it's a simple HTML
+              formatter or a complex web application, I strive to create
+              solutions that stand the test of time.
+            </p>
+
+            <blockquote
+              style="
+                margin: 2rem 0;
+                padding: 1rem;
+                border-left: 4px solid var(--accent-color);
+                background-color: var(--secondary-color);
+                font-style: italic;
+              "
+            >
+              "The best code is not just working code, but code that future
+              developers (including yourself) will thank you for writing."
+            </blockquote>
+
+            <h3>When I'm Not Coding</h3>
+            <p>
+              When I step away from the keyboard, you might find me exploring
+              the latest tech trends, contributing to open source projects, or
+              sharing insights about web development. I'm always eager to learn
+              new technologies and share knowledge with the developer community.
+            </p>
+
+            <h3>Let's Connect</h3>
+            <p>
+              I'm always interested in connecting with fellow developers,
+              discussing new projects, or collaborating on interesting
+              challenges. Whether you have a question about one of my projects,
+              want to share an idea, or just want to say hello, I'd love to hear
+              from you!
+            </p>
+
+            <div
+              class="social-showcase"
+              style="
+                margin: 2rem 0;
+                padding: 1.5rem;
+                background-color: var(--secondary-color);
+                border-radius: 8px;
+                border: 1px solid var(--border-color);
+              "
+            >
+              <h4>Find me online:</h4>
+              <div class="social-links" style="margin-top: 1rem">
+                <a
+                  href="https://github.com/dannyBimma/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="
+                    display: inline-block;
+                    padding: 0.75rem 1.5rem;
+                    margin-right: 1rem;
+                    background-color: var(--accent-color);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    font-weight: 700;
+                  "
+                >
+                  🐙 GitHub
+                </a>
+                <a
+                  href="https://www.threads.com/@danny_bimma"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="
+                    display: inline-block;
+                    padding: 0.75rem 1.5rem;
+                    background-color: var(--success-color);
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 4px;
+                    font-weight: 700;
+                  "
+                >
+                  🧵 Threads
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <h2>Get In Touch</h2>
+        <p>
+          Have a project in mind, a question about my work, or just want to
+          connect? I'd love to hear from you! Use the form below to send me a
+          message.
+        </p>
+
+        <form class="contact-form" name="contact" method="post">
+          <div class="form-group">
+            <label for="name"
+              >Name <span style="color: var(--warning-color)">*</span></label
+            >
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Your name"
+              aria-describedby="name-help"
+            />
+            <small
+              id="name-help"
+              style="color: var(--text-color); opacity: 0.7"
+            >
+              How should I address you in my response?
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="email"
+              >Email <span style="color: var(--warning-color)">*</span></label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="your.email@example.com"
+              aria-describedby="email-help"
+            />
+            <small
+              id="email-help"
+              style="color: var(--text-color); opacity: 0.7"
+            >
+              I'll use this to respond to your message
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              placeholder="What's this about?"
+              aria-describedby="subject-help"
+            />
+            <small
+              id="subject-help"
+              style="color: var(--text-color); opacity: 0.7"
+            >
+              Optional: A brief summary of your message
+            </small>
+          </div>
+
+          <div class="form-group">
+            <label for="message"
+              >Message <span style="color: var(--warning-color)">*</span></label
+            >
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              required
+              placeholder="Tell me about your project, question, or just say hello!"
+              aria-describedby="message-help"
+            ></textarea>
+            <small
+              id="message-help"
+              style="color: var(--text-color); opacity: 0.7"
+            >
+              The more details you provide, the better I can help you
+            </small>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" class="submit-btn">📧 Send Message</button>
+            <p
+              style="
+                margin-top: 1rem;
+                font-size: 0.9rem;
+                color: var(--text-color);
+                opacity: 0.8;
+              "
+            >
+              <em
+                >Note: This form will open your default email client. If you
+                prefer, you can also email me directly at
+                <a
+                  href="mailto:dantrotman92@gmail.com"
+                  style="color: var(--accent-color)"
+                  >dantrotman92@gmail.com</a
+                ></em
+              >
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <section
+        class="faq-section"
+        style="
+          margin-top: 3rem;
+          padding: 2rem;
+          background-color: var(--secondary-color);
+          border-radius: 8px;
+          border: 1px solid var(--border-color);
+        "
+      >
+        <h2>Frequently Asked Questions</h2>
+
+        <div class="faq-item" style="margin-bottom: 1.5rem">
+          <h4 style="color: var(--accent-color); margin-bottom: 0.5rem">
+            💼 Are you available for freelance work?
+          </h4>
+          <p>
+            It depends on the project and timeline. Feel free to reach out with
+            details about your project, and I'll let you know if I can help!
+          </p>
+        </div>
+
+        <div class="faq-item" style="margin-bottom: 1.5rem">
+          <h4 style="color: var(--accent-color); margin-bottom: 0.5rem">
+            🤝 Do you collaborate on open source projects?
+          </h4>
+          <p>
+            Absolutely! I'm always interested in contributing to meaningful open
+            source projects. Check out my GitHub to see what I'm currently
+            working on.
+          </p>
+        </div>
+
+        <div class="faq-item" style="margin-bottom: 1.5rem">
+          <h4 style="color: var(--accent-color); margin-bottom: 0.5rem">
+            💡 Can you help with code reviews or mentoring?
+          </h4>
+          <p>
+            I enjoy helping fellow developers grow. Depending on my
+            availability, I'm happy to provide code reviews or mentoring
+            sessions. Let's discuss your needs!
+          </p>
+        </div>
+
+        <div class="faq-item">
+          <h4 style="color: var(--accent-color); margin-bottom: 0.5rem">
+            📚 Do you offer workshops or tech talks?
+          </h4>
+          <p>
+            I'm passionate about sharing knowledge! If you're organizing a
+            meetup, conference, or workshop and think I'd be a good fit, please
+            don't hesitate to reach out.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2024 Danny Bimma. All rights reserved.</p>
+        <div class="social-links">
+          <a
+            href="https://github.com/dannyBimma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.threads.com/@danny_bimma"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Threads Profile"
+          >
+            Threads
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

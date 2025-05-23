@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DannyBimma's Blog - Developer thoughts, projects, and insights into modern web development">
+    <meta name="author" content="Danny Bimma">
+    <meta name="keywords" content="web development, programming, blog, developer portfolio">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dannybimma.dev/">
+    <meta property="og:title" content="DannyBimma's Blog">
+    <meta property="og:description" content="Developer thoughts, projects, and insights into modern web development">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://dannybimma.dev/">
+    <meta property="twitter:title" content="DannyBimma's Blog">
+    <meta property="twitter:description" content="Developer thoughts, projects, and insights into modern web development">
+    
+    <title>DannyBimma's Blog - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+</head>
+<body>
+    <header class="site-header">
+        <nav>
+            <a href="index.html" class="logo">dannybimma.dev</a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="about.html">About</a></li>
+            </ul>
+            
+            <div class="nav-controls">
+                <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                <button class="hamburger" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article class="featured-article">
+            <header class="article-header">
+                <h1>Building Modern Web Applications with Vanilla JavaScript</h1>
+                <div class="article-meta">
+                    Published on December 15, 2024 by Danny Bimma
+                </div>
+            </header>
+
+            <div class="article-content">
+                <p>
+                    In a world dominated by frameworks and libraries, there's something refreshing about going back to the fundamentals. 
+                    Today, I want to explore why vanilla JavaScript is not only still relevant but often the best choice for building 
+                    performant, maintainable web applications.
+                </p>
+
+                <img src="assets/images/vanilla-js-hero.jpg" alt="Code editor showing vanilla JavaScript" 
+                     style="width: 100%; max-width: 600px; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                            display: flex; align-items: center; justify-content: center; color: white; font-family: 'Space Mono', monospace;">
+                    <span style="text-align: center;">// Vanilla JS Hero Image<br>console.log('Hello, World!');</span>
+                </img>
+
+                <h2>Why Vanilla JavaScript?</h2>
+                <p>
+                    Don't get me wrong—frameworks like React, Vue, and Angular are fantastic tools. But sometimes, reaching for a 
+                    framework is like using a sledgehammer to crack a nut. Here's why vanilla JavaScript deserves a place in your toolkit:
+                </p>
+
+                <ul style="margin: 1rem 0; padding-left: 2rem;">
+                    <li><strong>Performance:</strong> No framework overhead means faster load times and better runtime performance</li>
+                    <li><strong>Understanding:</strong> Working with vanilla JS deepens your understanding of the language</li>
+                    <li><strong>Flexibility:</strong> You're not constrained by framework conventions or paradigms</li>
+                    <li><strong>Longevity:</strong> JavaScript will outlive any framework</li>
+                </ul>
+
+                <h2>Modern JavaScript Features That Change Everything</h2>
+                <p>
+                    Modern JavaScript has evolved significantly. With ES6+ features, the language now provides many capabilities 
+                    that previously required frameworks:
+                </p>
+
+                <pre><code>// Modern class syntax
+class ComponentManager {
+  constructor(selector) {
+    this.element = document.querySelector(selector);
+    this.init();
+  }
+
+  async init() {
+    const data = await this.fetchData();
+    this.render(data);
+  }
+
+  async fetchData() {
+    const response = await fetch('/api/data');
+    return response.json();
+  }
+
+  render(data) {
+    this.element.innerHTML = `
+      &lt;div class="component"&gt;
+        ${data.map(item => `&lt;p&gt;${item.title}&lt;/p&gt;`).join('')}
+      &lt;/div&gt;
+    `;
+  }
+}</code></pre>
+
+                <h2>Building This Blog: A Case Study</h2>
+                <p>
+                    This very blog you're reading is built with vanilla HTML, CSS, and JavaScript. Here's what I implemented 
+                    without any frameworks:
+                </p>
+
+                <ul style="margin: 1rem 0; padding-left: 2rem;">
+                    <li>Theme switching with localStorage persistence</li>
+                    <li>Responsive navigation with mobile hamburger menu</li>
+                    <li>Like system with client-side storage</li>
+                    <li>Smooth scrolling and fade-in animations</li>
+                    <li>Form validation and handling</li>
+                </ul>
+
+                <p>
+                    The entire codebase is lean, maintainable, and performs excellently across all devices. Best of all, 
+                    it will continue to work as long as browsers support JavaScript—no dependency updates required.
+                </p>
+
+                <h2>Conclusion</h2>
+                <p>
+                    While frameworks have their place, don't underestimate the power of vanilla JavaScript. Whether you're 
+                    building a simple blog, a portfolio site, or even complex web applications, sometimes the best tool 
+                    is the one that's already built into every browser.
+                </p>
+
+                <p>
+                    Happy coding! 🚀
+                </p>
+            </div>
+
+            <div class="like-container">
+                <button class="like-btn" data-article-id="vanilla-js-modern-web-apps">
+                    🤍 Like
+                </button>
+                <span class="like-count">0 likes</span>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Danny Bimma. All rights reserved.</p>
+            <div class="social-links">
+                <a href="https://github.com/dannyBimma/" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                    GitHub
+                </a>
+                <a href="https://www.threads.com/@danny_bimma" target="_blank" rel="noopener noreferrer" aria-label="Threads Profile">
+                    Threads
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 

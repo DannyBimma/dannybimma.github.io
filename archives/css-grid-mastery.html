@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Master CSS Grid with this comprehensive guide covering basic concepts to advanced layout patterns."
+    />
+    <meta name="author" content="Danny Bimma" />
+    <meta
+      name="keywords"
+      content="CSS Grid, web development, layout, responsive design, tutorial"
+    />
+
+    <title>
+      Mastering CSS Grid: From Basics to Advanced Layouts - DannyBimma's Blog
+    </title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>"
+    />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="../index.html" class="logo">dannybimma.dev</a>
+
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+
+        <div class="nav-controls">
+          <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+          <button class="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <article class="archived-article">
+        <header class="article-header">
+          <nav class="breadcrumb" style="margin-bottom: 1rem">
+            <a
+              href="../articles.html"
+              style="color: var(--accent-color); text-decoration: none"
+              >← Back to Articles</a
+            >
+          </nav>
+          <h1>Mastering CSS Grid: From Basics to Advanced Layouts</h1>
+          <div class="article-meta">
+            Published on November 28, 2024 by Danny Bimma
+          </div>
+        </header>
+
+        <div class="article-content">
+          <p>
+            CSS Grid has revolutionized how we approach web layouts. Gone are
+            the days of complex float-based layouts and flexbox workarounds for
+            two-dimensional designs. Grid provides a powerful, intuitive way to
+            create sophisticated layouts with clean, semantic code.
+          </p>
+
+          <div
+            style="
+              width: 100%;
+              max-width: 600px;
+              height: 300px;
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              font-family: 'Space Mono', monospace;
+              margin: 2rem 0;
+              border-radius: 8px;
+              border: 1px solid var(--border-color);
+            "
+          >
+            <div style="text-align: center">
+              <div style="font-size: 2rem; margin-bottom: 1rem">⚡</div>
+              <div>CSS Grid Mastery</div>
+              <div style="font-size: 0.8rem; opacity: 0.8">
+                Power up your layouts
+              </div>
+            </div>
+          </div>
+
+          <h2>What is CSS Grid?</h2>
+          <p>
+            CSS Grid is a two-dimensional layout system that allows you to
+            arrange content in rows and columns simultaneously. Unlike flexbox,
+            which is primarily one-dimensional, Grid excels at creating complex
+            layouts where you need precise control over both horizontal and
+            vertical spacing.
+          </p>
+
+          <h2>Basic Grid Concepts</h2>
+          <p>
+            Before diving into advanced techniques, let's establish the
+            fundamental concepts:
+          </p>
+
+          <h3>Grid Container and Grid Items</h3>
+          <pre><code>.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px 200px 100px;
+  gap: 1rem;
+}
+
+.grid-item {
+  background-color: #f0f0f0;
+  padding: 1rem;
+}</code></pre>
+
+          <h3>Grid Lines and Tracks</h3>
+          <p>
+            Grid lines are the horizontal and vertical lines that divide the
+            grid. The spaces between grid lines are called tracks. Understanding
+            this concept is crucial for positioning items precisely.
+          </p>
+
+          <h2>Responsive Grid Layouts</h2>
+          <p>
+            One of Grid's greatest strengths is creating responsive layouts
+            without media queries:
+          </p>
+
+          <pre><code>/* Auto-fit responsive grid */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+/* Auto-fill alternative */
+.auto-fill-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}</code></pre>
+
+          <h2>Advanced Grid Techniques</h2>
+
+          <h3>Named Grid Lines</h3>
+          <p>
+            Named grid lines make your layouts more readable and maintainable:
+          </p>
+
+          <pre><code>.advanced-grid {
+  display: grid;
+  grid-template-columns: 
+    [sidebar-start] 250px 
+    [sidebar-end main-start] 1fr 
+    [main-end];
+  grid-template-rows:
+    [header-start] 60px
+    [header-end content-start] 1fr
+    [content-end footer-start] 40px
+    [footer-end];
+}
+
+.header {
+  grid-column: sidebar-start / main-end;
+  grid-row: header-start / header-end;
+}</code></pre>
+
+          <h3>Grid Areas</h3>
+          <p>Grid areas provide a visual way to define layouts:</p>
+
+          <pre><code>.layout {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar main aside"
+    "footer footer footer";
+  grid-template-rows: 60px 1fr 40px;
+  grid-template-columns: 200px 1fr 150px;
+}
+
+.header { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main { grid-area: main; }
+.aside { grid-area: aside; }
+.footer { grid-area: footer; }</code></pre>
+
+          <h2>Common Grid Patterns</h2>
+
+          <h3>The Holy Grail Layout</h3>
+          <p>The classic web layout pattern, now trivial with Grid:</p>
+
+          <pre><code>.holy-grail {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav main aside"
+    "footer footer footer";
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 200px 1fr 200px;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .holy-grail {
+    grid-template-areas:
+      "header"
+      "nav"
+      "main"
+      "aside"
+      "footer";
+    grid-template-columns: 1fr;
+  }
+}</code></pre>
+
+          <h3>Card Grid Layout</h3>
+          <p>Perfect for product listings, portfolios, or blog posts:</p>
+
+          <pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}</code></pre>
+
+          <h2>Grid vs. Flexbox: When to Use What?</h2>
+          <p>
+            Both Grid and Flexbox are powerful, but they excel in different
+            scenarios:
+          </p>
+
+          <ul style="margin: 1rem 0; padding-left: 2rem">
+            <li>
+              <strong>Use Grid for:</strong> Two-dimensional layouts, complex
+              page structures, overlapping elements
+            </li>
+            <li>
+              <strong>Use Flexbox for:</strong> One-dimensional layouts,
+              component-level design, dynamic content
+            </li>
+            <li>
+              <strong>Use both:</strong> Grid for page layout, Flexbox for
+              component internals
+            </li>
+          </ul>
+
+          <h2>Browser Support and Fallbacks</h2>
+          <p>
+            CSS Grid has excellent modern browser support, but you might need
+            fallbacks for older browsers:
+          </p>
+
+          <pre><code>/* Fallback for older browsers */
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  flex: 1 1 300px;
+  margin: 0.5rem;
+}
+
+/* Grid enhancement */
+@supports (display: grid) {
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  
+  .grid-item {
+    margin: 0;
+  }
+}</code></pre>
+
+          <h2>Performance Considerations</h2>
+          <p>Grid is generally performant, but keep these tips in mind:</p>
+
+          <ul style="margin: 1rem 0; padding-left: 2rem">
+            <li>Avoid frequent grid property changes in JavaScript</li>
+            <li>
+              Use <code>transform</code> for animations instead of changing grid
+              properties
+            </li>
+            <li>
+              Consider using <code>content-visibility</code> for large grids
+            </li>
+            <li>Test performance on lower-end devices</li>
+          </ul>
+
+          <h2>Conclusion</h2>
+          <p>
+            CSS Grid has transformed web layout from a complex puzzle into an
+            intuitive, powerful tool. Whether you're building simple card
+            layouts or complex dashboard interfaces, Grid provides the
+            flexibility and control you need.
+          </p>
+
+          <p>
+            The key to mastering Grid is practice. Start with simple layouts and
+            gradually work your way up to more complex patterns. Before you know
+            it, you'll be creating layouts that would have been nearly
+            impossible with older CSS techniques.
+          </p>
+
+          <p>Happy grid-ing! 🎨</p>
+        </div>
+
+        <div class="like-container">
+          <button class="like-btn" data-article-id="css-grid-mastery">
+            🤍 Like
+          </button>
+          <span class="like-count">0 likes</span>
+        </div>
+
+        <nav
+          class="article-navigation"
+          style="
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 1rem;
+            "
+          >
+            <a
+              href="../articles.html"
+              style="
+                color: var(--accent-color);
+                text-decoration: none;
+                font-weight: 700;
+              "
+            >
+              ← All Articles
+            </a>
+            <a
+              href="../index.html"
+              style="
+                color: var(--accent-color);
+                text-decoration: none;
+                font-weight: 700;
+              "
+            >
+              Latest Post →
+            </a>
+          </div>
+        </nav>
+      </article>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2024 Danny Bimma. All rights reserved.</p>
+        <div class="social-links">
+          <a
+            href="https://github.com/dannyBimma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.threads.com/@danny_bimma"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Threads Profile"
+          >
+            Threads
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+  </body>
+</html>
