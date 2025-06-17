@@ -67,7 +67,7 @@ nav {
 }
 
 .logo::before {
-  content: "~ ";
+  content: "~";
   color: var(--success-color);
 }
 
