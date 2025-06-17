@@ -274,6 +274,50 @@ pre {
   }
 }
 
+/* Article Video Styles */
+.article-video {
+  margin: 2rem auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.article-video video {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--secondary-color);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.article-video video:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Responsive styles for mobile */
+@media (max-width: 768px) {
+  .article-video {
+    margin: 1.5rem auto;
+  }
+
+  .article-video video {
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-video {
+    margin: 1rem auto;
+  }
+
+  .article-video video {
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}
+
 /* Like button */
 .like-container {
   margin: 2rem 0;
