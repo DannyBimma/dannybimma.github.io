@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="DannyBimma's Blog: Software development thoughts, projects, and musings into the world of technology"
+    />
+    <meta name="author" content="Danny Bimma" />
+    <meta
+      name="keywords"
+      content="software development, programming, blog, portfolio, technology, musings, projects"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dannybimma.github.io" />
+    <meta property="og:title" content="DannyBimma's Blog" />
+    <meta
+      property="og:description"
+      content="Developer thoughts, projects, and insights into modern software development"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://dannybimma.github.io" />
+    <meta property="twitter:title" content="DannyBimma's Blog" />
+    <meta
+      property="twitter:description"
+      content="Developer thoughts, projects, and insights into modern software development"
+    />
+
+    <title>DannyBimma's Blog - Archives</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>"
+    />
+    <script src="../js/script.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav>
+        <a href="../index.html" class="logo">/dannybimma/dev</a>
+
+        <ul class="nav-links">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../articles.html">Articles</a></li>
+          <li><a href="../projects.html">Projects</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+
+        <div class="nav-controls">
+          <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+          <button class="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <article class="featured-article">
+        <header class="article-header">
+          <h1>Getting Distracted by Side Projects</h1>
+          <div class="article-meta">
+            Published on December 23, 2024 by Danny Bimma
+          </div>
+        </header>
+
+        <div class="article-content">
+          <p>
+            It all started sometime last week; I had just awoken from my nightly
+            slumber, and after staring at the ceiling for a couple of mins to
+            give my brain time to boot up my bodily systems and function for the
+            day, I rolled over to grab my phone. I opened the Pokémon TCGP app
+            and BOOM!! There it was, the Mythical Island Booster Pack! With no
+            less than my absolute favourite Pokémon, Mew, gorgeously gracing the
+            cover 🥹
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7c771b4c-e8c7-48f3-9e5c-f5f775b35028_2160x1080.heic"
+            alt="Mew on the cover of the Mythical Island Booster Pack"
+          />
+
+          <p>
+            So, I obviously and excitedly ripped open the new pack as soon as I
+            could… and no Mew. I opened about 6 packs in the subsequent days,
+            but no Mew. I returned to Threads to find my feed awash with other
+            players who were swimming in elation after opening “Gods Packs”
+            containing multiple iterations of my beloved Mew. It pissed me off!
+            So much so I yeeted all the gold and Pack Hour Glasses I had been
+            accumulating for months to force open a 10-pack, and still, NO MEW
+            😔!
+          </p>
+
+          <p>
+            The 10-pack dud was the last straw! I deduced that such a
+            statistical anomaly could only mean one thing: the game devs had
+            purposely singled out my account and banned me from acquiring Mew…
+            and I was not about to take that lying down. And so, I decided to
+            build my own version of the game that simulates opening a Booster
+            Pack—giving myself Mew every, single, time 😠!
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6b2c1480-18b0-4193-b4fe-73387ecfc26a_867x863.heic"
+            alt="Thanos I'll do it myself meme"
+          />
+
+          <h2>The Language</h2>
+
+          <p>
+            I actually started building this thing in C, and that’s only because
+            it’s the language I’m most comfortable with. So when I start
+            picturing things in code, I do so in C. And it was going great to be
+            honest, up until I got to the point where I had to build my own
+            function to parse the JSON data. And I mean, I was salty, but not
+            saltine enough to deal with all that jazz—Python was always the only
+            option for me 🙄
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc8a6cf86-4f5d-46b2-9682-d286a7cad8ac_2500x2140.heic"
+            alt="C memory leak meme"
+          />
+
+          <p>
+            Python programmers laud the language for its speed of development.
+            For me, I find that sentiment to be both true and untrue at the same
+            damn time. True in the sense that you can write a “Hello, World!”
+            program faster in Python than you can even think about it in ANY
+            other language. And false in that if your program is any bigger than
+            4 lines of code, the simplicity of Python’s syntax gets more and
+            more complex with each additional line.
+          </p>
+
+          <h3>What in the Indentation is Python All About?</h3>
+
+          <p>
+            In my poke_play program, there’s a method called [load_booster_pck]
+            in the [PokedexAPI] class (built to receive & process the API Data)
+            which returns a list of 5 random selected Pokémon. It is the literal
+            crux of the whole application. If it was unable to return that list,
+            none of the logic in my main function would work after asking for
+            user input. And for hours, I COULD NOT GET IT TO WORK!
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F38feecdf-280f-4a68-b4e4-fd7311693860_2032x1210.heic"
+            alt="Python code"
+          />
+
+          <p>
+            No matter how long I stared at my source code; I could not figure
+            out why main wasn’t getting access to a list being returned by a
+            method in a class that was clearly instantiated in main’s very first
+            line!! If you’re a non-technical person, that probably sounds like
+            utter gibberish. But take my word for it. As far as I could see, I
+            did everything correctly, but my code still wasn’t running as
+            expected…
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Feae2d485-5509-4161-967d-bd0b54c0981b_534x523.heic"
+            alt="Python code meme"
+          />
+
+          <p>
+            Of course, the truth was I hadn’t in fact done everything correctly,
+            or at least not in the Pythonian way. The reason main couldn’t
+            access the list even though there was an instance of it on the very
+            first line; the reason half the variables I declared in the
+            PokedexAPI class seemed scooped to themselves, the reason my code
+            wouldn’t run as expected after 4 straight-hyper-focused hours of
+            writing it, was all because of some gosh darn indentation errors.
+            It’s not even funny, it’s actually ridiculous. The human eye was not
+            built for readily identifying indents 😭!
+          </p>
+
+          <p>
+            Take this meme below as an example. It’s meant to be funny because
+            the two blocks of code are exactly the same, but the fact that
+            Python made me stare at this image for 15 fucking minutes to deduce
+            that is objectively insane!! Also, the really funny part about that
+            is both blocks of code would fail because the person who made it
+            forgot a fucking colon on line 5. Sigh; excuse my French, I shall
+            begin to digress 😞
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4468e67f-dac6-4854-b72e-4ab170394410_940x940.heic"
+            alt="Python indentation meme"
+          />
+
+          <p>
+            I mean, as an old web dev, I used to find the JavaScript “missing
+            semicolon joke” to be extremely hilarious. Mostly because JS was
+            getting dragged for something it correctly inherited from C. But
+            Python’s indentation syntax is the absolute worst solution to
+            anything I’ve ever had the horror of seeing in my life—especially
+            for something that was never a problem in the first place. Opting
+            for indentation over curly braces was a mistake, and I hope Guido
+            van Rossum knows that.
+          </p>
+
+          <h2>The Main Logic of My Code</h2>
+
+          <p>
+            They say the Python Programming language is so close to natural
+            language that you don’t even need a main function. But if you
+            actually want to write a program bigger than 10 lines with it and
+            also keep your sanity, you will absolutely need a main function!!
+            Anyway, as mentioned previously, my main starts with an instance of
+            the fabled PokedexAPI. Next, I use Python’s input function to ask
+            the user for their name and strip it of any trailing space.
+          </p>
+
+          <p>
+            The simple control flow that follows is where all the magic happens.
+            If the user name entered is specifically mine, then the
+            [load_booster_pck]method will instantaneously return Mew followed by
+            4 random cards to make 5. ELSE IF it’s any other username, the
+            method simply returns 5 random cards. An absolute genius, aren’t I?
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6ca6e3c4-ca21-48c7-be7b-23b9eec2a87b_1886x454.heic"
+            alt="Python code"
+          />
+
+          <h3>Getting All Up in that API</h3>
+
+          <p>
+            After about 2 days of reading the PokeAPI doc as much and as often
+            as I could, I now feel I know more about Pokémon than I ever have
+            before. Which does actually feel incredible. I learned things like
+            the fact that they’ve issued exactly 898 Pokémon IDs to new
+            creatures as of Generation 8. And the reason Mewtwo’s ID is 150
+            while Mew’s is 151, although Mewtwo is Mew’s clone, is all because
+            the original game devs planned for Mewtwo to be obtainable in-game
+            as the last all-powerful Pokémon, and thus was given number 150. But
+            Mew was created very shortly after as a buff that could only be had
+            through special events.
+          </p>
+
+          <p>
+            However, since the source code for the original game had already
+            been written and shipped. The devs had no choice but to give Mew
+            151. In a nutshell, the devs finished writing their code before the
+            storytellers finished writing their lore—typical behaviour from both
+            fields.
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F53a32a81-934f-4710-b331-3f977ee64666_1024x1024.heic"
+            alt="Writer's block meme"
+          />
+
+          <p>
+            Throughout this return to coding journey of mine, someone dear to me
+            commented how they weren’t surprised by my love for coding once they
+            found out that it involves more reading of docs than writing of
+            code. And my love of stories is something I never connected to my
+            love of code until she pointed it out to me.
+          </p>
+
+          <p>
+            Which leads me to my personal favourite block of code in the whole
+            base. It’s the [get_pokes] method! A simple function in the API
+            class which does a try-catch API call. For as much gripe as I’ve
+            given Python in the first half of this article, it has to be said
+            was a joy writing this was!! I think too much abstraction in
+            programming is just as wrong as too little abstraction, and I also
+            believe what is too much or too little is totally down to personal
+            preference. And Python having a built-in library specifically for
+            handling API calls and parsing JSON data, is exactly the amount of
+            abstraction you need to build a CLI game real quick in a fit of
+            anger.
+          </p>
+
+          <p>
+            Oh, and I set the timeout on the response to 69 seconds, because I’m
+            the type of guy to sit and stare at a cursor blinking on a blank
+            screen for a minute and 9 seconds just to have a little chuckle once
+            that code ran 🤷🏽‍♂️
+          </p>
+
+          <img
+            class="article-image"
+            src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F69ae70ce-6849-433e-b7fd-bf9997dc49a5_2052x1210.heic"
+            alt="Python code"
+          />
+
+          <h2>That’s All I Wrote</h2>
+          <p>
+            That's all folks! The actual game itself is nothing more than a
+            terminal application that simulates opening a Pokémon TCGP Booster
+            Pack in plain text. It’s fun for about 10 mins and then you’ll get
+            tired of it, but the fun I had writing it will stay with me for a
+            long time.
+          </p>
+
+          <p>
+            I guess anyone is welcome to try it out for themselves, it’s half
+            the reason I put it on Github. But honestly, I really wouldn’t
+            recommend doing that unless you’re a technical person. Running code
+            from a random box on the internet directly on your personal machine
+            is always a bad idea if you don’t know what that code does.
+          </p>
+
+          <p>
+            But, if you DO happen to be a follow programming. Please, clone the
+            repo, run the Python executable, and tell me what you think. Full
+            source code on Github:
+            <a
+              href="https://github.com/DannyBimma/poke-play-app"
+              target="_blank"
+              rel="noopener noreferrer"
+              >poke_play_app</a
+            >
+          </p>
+        </div>
+
+        <div class="like-container">
+          <button class="like-btn" data-article-id="i-struggle">🤍 Like</button>
+          <span class="like-count">0 likes</span>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p>&copy; 2025 Danny Bimma. All rights reserved.</p>
+        <div class="social-links">
+          <a
+            href="https://github.com/dannyBimma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub Profile"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.threads.com/@danny_bimma"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Threads Profile"
+          >
+            Threads
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
