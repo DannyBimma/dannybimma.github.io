@@ -33,11 +33,21 @@
 }
 
 body {
+  margin: 40px auto;
+  max-width: 900px;
   font-family: "Space Mono", monospace;
+  font-size: 18px;
+  padding: 0 10px;
   background-color: var(--bg-color);
   color: var(--text-color);
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
 }
 
 /* Site Header and Navigation */
