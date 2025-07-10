@@ -5,7 +5,6 @@ class ThemeManager {
   }
 
   init() {
-    // Check for saved theme or default to system preference
     const savedTheme = localStorage.getItem("theme");
     const systemPrefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)",
@@ -17,7 +16,7 @@ class ThemeManager {
       this.setTheme(systemPrefersDark ? "dark" : "light");
     }
 
-    // Listen for system theme changes
+    // Listen for changes
     window
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (e) => {
@@ -52,7 +51,7 @@ class ThemeManager {
         `Switch to ${theme === "dark" ? "light" : "dark"} mode`,
       );
 
-      // Add click handler if not already added
+      // Click handler
       if (!themeToggle.dataset.handlerAdded) {
         themeToggle.addEventListener("click", () => this.toggleTheme());
         themeToggle.dataset.handlerAdded = "true";
@@ -61,7 +60,7 @@ class ThemeManager {
   }
 }
 
-// Navigation Management
+// Burger King's hidden menu
 class NavigationManager {
   constructor() {
     this.hamburger = document.querySelector(".hamburger");
@@ -73,14 +72,13 @@ class NavigationManager {
     if (this.hamburger && this.navLinks) {
       this.hamburger.addEventListener("click", () => this.toggleMobileNav());
 
-      // Close mobile nav when clicking on a link
+      // Burger cancellations
       this.navLinks.addEventListener("click", (e) => {
         if (e.target.tagName === "A") {
           this.closeMobileNav();
         }
       });
 
-      // Close mobile nav when clicking outside
       document.addEventListener("click", (e) => {
         if (!e.target.closest("nav")) {
           this.closeMobileNav();
@@ -118,7 +116,7 @@ class NavigationManager {
   }
 }
 
-// Like System
+// Do it for the Likes
 class LikeManager {
   constructor() {
     this.likes = this.loadLikes();
@@ -136,6 +134,7 @@ class LikeManager {
     });
   }
 
+  // Ephemeral, local, meaningless likes
   loadLikes() {
     try {
       return JSON.parse(localStorage.getItem("blogLikes")) || {};
@@ -160,7 +159,7 @@ class LikeManager {
       );
       this.likes[articleId].liked = false;
     } else {
-      this.likes[articleId].count += 1;
+      this.likes[articleId].count += 69;
       this.likes[articleId].liked = true;
     }
 
@@ -192,7 +191,7 @@ class LikeManager {
   }
 }
 
-// Contact Form Handler
+// Contact Form
 class ContactFormManager {
   constructor() {
     this.form = document.querySelector(".contact-form");
@@ -213,7 +212,7 @@ class ContactFormManager {
     const email = formData.get("email");
     const message = formData.get("message");
 
-    // Basic validation
+    // Validation (weak)
     if (!name || !email || !message) {
       this.showMessage("Please fill in all fields.", "error");
       return;
@@ -224,7 +223,7 @@ class ContactFormManager {
       return;
     }
 
-    // Create mailto link (since this is a static site)
+    // Create mailto link (site is static)
     const subject = encodeURIComponent(`Contact from ${name}`);
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
@@ -242,14 +241,13 @@ class ContactFormManager {
     return emailRegex.test(email);
   }
 
+  // Msg box
   showMessage(text, type) {
-    // Remove existing message
     const existingMessage = document.querySelector(".form-message");
     if (existingMessage) {
       existingMessage.remove();
     }
 
-    // Create new message
     const message = document.createElement("div");
     message.className = `form-message ${type}`;
     message.textContent = text;
@@ -266,7 +264,7 @@ class ContactFormManager {
 
     this.form.appendChild(message);
 
-    // Remove message after 5 seconds
+    // 5 sec timeout
     setTimeout(() => {
       if (message.parentElement) {
         message.remove();
@@ -291,7 +289,7 @@ function initSmoothScroll() {
   });
 }
 
-// Add fade-in animation to elements
+// Peep dem fade-in animations
 function initFadeInAnimations() {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -313,7 +311,7 @@ function initFadeInAnimations() {
     });
 }
 
-// Initialize everything when DOM is loaded
+// Init on DOM's load
 document.addEventListener("DOMContentLoaded", () => {
   new ThemeManager();
   new NavigationManager();
@@ -323,17 +321,17 @@ document.addEventListener("DOMContentLoaded", () => {
   initFadeInAnimations();
 });
 
-// Add some console easter egg for developers
+// Easter egg for devs
 console.log(`
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                                                                            ║
-║    $ welcome to dannybimma's blog                                          ║
-║    > built with vanilla html, css, and javascript                         ║
-║    > terminal-inspired design for developers                              ║
-║    > check out the source code and let's connect!                         ║
+║    ~ welcome to my personal blog and dev portfolio                         ║
+║    > i am the man who will one day become King of the Pirates              ║
+║    > i think ai should be used in code/math/science but banned from art    ║
+║    > if you are reading this, you are a nerd; so hit me up 😁✌🏾             ║
 ║                                                                            ║
-║    GitHub: https://github.com/dannyBimma/                                 ║
-║    Threads: https://www.threads.com/@danny_bimma                          ║
+║    GitHub: https://github.com/dannyBimma/                                  ║
+║    Threads: https://www.threads.com/@danny_bimma                           ║
 ║                                                                            ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 `);
