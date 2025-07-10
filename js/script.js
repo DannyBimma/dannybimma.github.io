@@ -1,4 +1,4 @@
-// Theme Management
+//Dark/light mode check
 class ThemeManager {
   constructor() {
     this.init();
@@ -8,7 +8,7 @@ class ThemeManager {
     // Check for saved theme or default to system preference
     const savedTheme = localStorage.getItem("theme");
     const systemPrefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
 
     if (savedTheme) {
@@ -49,7 +49,7 @@ class ThemeManager {
       themeToggle.textContent = theme === "dark" ? "☀️" : "🌙";
       themeToggle.setAttribute(
         "aria-label",
-        `Switch to ${theme === "dark" ? "light" : "dark"} mode`
+        `Switch to ${theme === "dark" ? "light" : "dark"} mode`,
       );
 
       // Add click handler if not already added
@@ -156,7 +156,7 @@ class LikeManager {
     if (this.likes[articleId].liked) {
       this.likes[articleId].count = Math.max(
         0,
-        this.likes[articleId].count - 1
+        this.likes[articleId].count - 1,
       );
       this.likes[articleId].liked = false;
     } else {
@@ -170,7 +170,7 @@ class LikeManager {
 
   updateAllLikeButtons(articleId) {
     const buttons = document.querySelectorAll(
-      `[data-article-id="${articleId}"]`
+      `[data-article-id="${articleId}"]`,
     );
     buttons.forEach((btn) => this.updateLikeButton(btn, articleId));
   }
@@ -227,7 +227,7 @@ class ContactFormManager {
     // Create mailto link (since this is a static site)
     const subject = encodeURIComponent(`Contact from ${name}`);
     const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
     );
     const mailtoLink = `mailto:dantrotman92@gmail.com?subject=${subject}&body=${body}`;
 
@@ -303,7 +303,7 @@ function initFadeInAnimations() {
     },
     {
       threshold: 0.1,
-    }
+    },
   );
 
   document
