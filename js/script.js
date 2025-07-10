@@ -6,7 +6,7 @@ class ThemeManager {
 
   init() {
     const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia(
+    const systemPrefersDark = globalThis.matchMedia(
       "(prefers-color-scheme: dark)",
     ).matches;
 
@@ -17,7 +17,7 @@ class ThemeManager {
     }
 
     // Listen for changes
-    window
+    globalThis
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (e) => {
         if (!localStorage.getItem("theme")) {
@@ -101,7 +101,7 @@ class NavigationManager {
 
   setActiveNavLink() {
     const currentPage =
-      window.location.pathname.split("/").pop() || "index.html";
+      globalThis.location.pathname.split("/").pop() || "index.html";
     const navLinks = document.querySelectorAll(".nav-links a");
 
     navLinks.forEach((link) => {
@@ -230,7 +230,7 @@ class ContactFormManager {
     );
     const mailtoLink = `mailto:dantrotman92@gmail.com?subject=${subject}&body=${body}`;
 
-    window.location.href = mailtoLink;
+    globalThis.location.href = mailtoLink;
 
     this.showMessage("Opening your email client...", "success");
     this.form.reset();
