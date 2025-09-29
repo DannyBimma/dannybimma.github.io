@@ -16,7 +16,7 @@ This directory is for storing image assets used throughout the blog.
 - **Thumbnails**: 300x200px
 - **Author Photos**: 200x200px (square)
 
-## Image Optimization Tips
+## Image Optimisation Tips
 
 1. Compress images before uploading
 2. Use appropriate formats for content type
@@ -33,5 +33,5 @@ This directory is for storing image assets used throughout the blog.
 />
 ```
 
-Place your image files directly in this directory and reference them with the path:
-`assets/images/your-image-name.ext`
+Place image files directly in this directory and reference them with the path:
+`assets/images/article_img_folder/image-name.ext`
