@@ -179,14 +179,12 @@ class LikeManager {
     const likeCount = button.parentElement.querySelector(".like-count");
 
     button.classList.toggle("liked", likeData.liked);
-    button.innerHTML = `${likeData.liked ? "❤️" : "🤍"} ${
-      likeData.liked ? "Liked" : "Like"
-    }`;
+    button.innerHTML = `${likeData.liked ? "❤️" : "🤍"} ${likeData.liked ? "Liked" : "Like"
+      }`;
 
     if (likeCount) {
-      likeCount.textContent = `${likeData.count} like${
-        likeData.count !== 1 ? "s" : ""
-      }`;
+      likeCount.textContent = `${likeData.count} like${likeData.count !== 1 ? "s" : ""
+        }`;
     }
   }
 }
@@ -256,8 +254,7 @@ class ContactFormManager {
       margin-top: 1rem;
       border-radius: 4px;
       font-weight: 700;
-      background-color: ${
-        type === "error" ? "var(--warning-color)" : "var(--success-color)"
+      background-color: ${type === "error" ? "var(--warning-color)" : "var(--success-color)"
       };
       color: white;
     `;
@@ -276,7 +273,7 @@ class ContactFormManager {
 // Smooth scroll for anchor links
 function initSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
+    anchor.addEventListener("click", function(e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute("href"));
       if (target) {
