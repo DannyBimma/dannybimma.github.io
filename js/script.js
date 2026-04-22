@@ -412,4 +412,4 @@ console.log(`
 ║    Threads: https://www.threads.com/@danny_bimma                           ║
 ║                                                                            ║
 ╚════════════════════════════════════════════════════════════════════════════╝
-`);
+`)https://dannybimma.github.io;
