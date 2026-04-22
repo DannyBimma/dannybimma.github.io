@@ -1,4 +1,4 @@
-//Dark/light mode check
+// Dark/light
 class ThemeManager {
   constructor() {
     this.init();
@@ -128,7 +128,7 @@ const LIKES_API_BASE = "https://dannybimma-likes.dantrotman92.workers.dev";
 const VISITOR_KEY = "visitor_id";
 const LIKES_CACHE_KEY = "likesCache";
 
-// Read the visitor cookie if it exists, else return empty string.
+// Read the visitor cookie if it exists, else return empty string
 function readVisitorCookie() {
   const match = document.cookie
     .split("; ")
@@ -136,8 +136,8 @@ function readVisitorCookie() {
   return match ? match.slice(VISITOR_KEY.length + 1) : "";
 }
 
-// Write a 10-year first-party cookie holding the visitor id. Secure flag only
-// goes on when we're on HTTPS, so localhost (http) testing still works.
+// A 10-year first-party cookie holding the visitor id. Secure flag only
+// goes applies on HTTPS, so localhost (http) testing still works
 function writeVisitorCookie(id) {
   const tenYears = 60 * 60 * 24 * 365 * 10;
   const secure = globalThis.location.protocol === "https:" ? "; Secure" : "";
@@ -146,7 +146,7 @@ function writeVisitorCookie(id) {
 
 // Belt-and-braces visitor id: use whichever of cookie/localStorage already has
 // it, generate a new UUID if neither does, then mirror the final value back
-// into both. Clearing only cookies OR only localStorage won't forget us.
+// into both
 function getOrCreateVisitorId() {
   const fromCookie = readVisitorCookie();
   const fromStorage = localStorage.getItem(VISITOR_KEY) || "";
@@ -160,9 +160,9 @@ class LikeManager {
   constructor() {
     this.visitorId = getOrCreateVisitorId();
     // Stale cache of last-seen counts — paints the UI instantly on load
-    // before the Worker response comes back.
+    // before Worker response comes back
     this.state = this.loadCachedState();
-    // Prevents rapid double-clicks from racing two POSTs for the same article.
+    // Prevent rapid double-clicks from racing two POSTs for the same article
     this.inFlight = new Set();
     this.init();
   }
@@ -194,7 +194,7 @@ class LikeManager {
     localStorage.setItem(LIKES_CACHE_KEY, JSON.stringify(this.state));
   }
 
-  // Batch GET — one round-trip for every article id on the current page.
+  // Batch GET (one round-trip for every article id on the current page)
   async refresh(ids) {
     const url = new URL(`${LIKES_API_BASE}/likes`);
     url.searchParams.set("ids", ids.join(","));
@@ -207,13 +207,13 @@ class LikeManager {
       this.saveCachedState();
       ids.forEach((id) => this.paintAll(id));
     } catch (err) {
-      // Offline / CORS / Worker down — keep stale cache and move on quietly.
+      // Gracefully handle likes failing to load
       console.warn("likes: failed to load counts", err);
     }
   }
 
   // Toggle flow: flip the UI optimistically, POST to the Worker, reconcile
-  // with the authoritative response (or revert if the request failed).
+  // with the authoritative response (or revert if the request failed)
   async toggle(articleId) {
     if (this.inFlight.has(articleId)) return;
     this.inFlight.add(articleId);
@@ -240,10 +240,9 @@ class LikeManager {
       this.state[articleId] = data;
       this.saveCachedState();
       this.paintAll(articleId);
-      // Easter egg: the +69 joke from the old fake-likes code lives on, but
-      // only in the devtools console when someone actually likes something.
+      // 69 Easter egg for the console
       if (data.liked) {
-        console.log("%c+69 nice.", "color:#ff69b4;font-weight:700");
+        console.log("%c+69? Nice! 420? Blaze it!!", "color:#ff69b4;font-weight:700");
       }
     } catch (err) {
       console.warn("likes: toggle failed, reverting", err);
@@ -405,9 +404,9 @@ console.log(`
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                                                                            ║
 ║    ~ welcome to my personal blog and dev portfolio                         ║
-║    > i am the man who will one day become King of the Pirates              ║
-║    > i think ai should be used in code/math/science but banned from art    ║
-║    > if you are reading this, you are a nerd; so hit me up 😁✌🏾             ║
+║    > i am the man who will one day become King of the Coders               ║
+║    > i think genAI should be used in code/math/science but banned from art ║
+║    > if you are reading this, you're probably a nerd; so hit me up 😁✌🏾     ║
 ║                                                                            ║
 ║    GitHub: https://github.com/dannyBimma/                                  ║
 ║    Threads: https://www.threads.com/@danny_bimma                           ║
