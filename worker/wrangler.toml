@@ -8,9 +8,13 @@ main = "src/index.js"
 # Pins the Workers runtime to a specific date so behavior doesn't drift.
 compatibility_date = "2025-01-01"
 
+# Hardcoding the account id lets wrangler skip the /memberships lookup, so the
+# deploy token doesn't need "User -> Memberships -> Read" permission.
+account_id = "ebe60c57e59319bd19367627142d6a5b"
+
 # Binds a Workers KV namespace to the Worker under the name env.LIKES.
 # Create the namespace first, then paste the id Wrangler prints here:
 #   npx wrangler kv:namespace create LIKES
 [[kv_namespaces]]
 binding = "LIKES"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "4cbf5f1bef46450aa878a960e605dbdd"
