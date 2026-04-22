@@ -117,74 +117,156 @@ class NavigationManager {
 }
 
 // Do it for the Likes
+// -------------------
+// Real, persisted likes via the Cloudflare Worker at LIKES_API_BASE. Each
+// visitor gets a UUID stored in both a first-party cookie AND localStorage
+// so clearing just one doesn't lose their identity. The Worker enforces
+// "one like per (visitor, article)" and returns the authoritative count
+// after every toggle — the client just mirrors what it hears back.
+
+const LIKES_API_BASE = "https://dannybimma-likes.dantrotman92.workers.dev";
+const VISITOR_KEY = "visitor_id";
+const LIKES_CACHE_KEY = "likesCache";
+
+// Read the visitor cookie if it exists, else return empty string.
+function readVisitorCookie() {
+  const match = document.cookie
+    .split("; ")
+    .find((c) => c.startsWith(`${VISITOR_KEY}=`));
+  return match ? match.slice(VISITOR_KEY.length + 1) : "";
+}
+
+// Write a 10-year first-party cookie holding the visitor id. Secure flag only
+// goes on when we're on HTTPS, so localhost (http) testing still works.
+function writeVisitorCookie(id) {
+  const tenYears = 60 * 60 * 24 * 365 * 10;
+  const secure = globalThis.location.protocol === "https:" ? "; Secure" : "";
+  document.cookie = `${VISITOR_KEY}=${id}; Max-Age=${tenYears}; Path=/; SameSite=Lax${secure}`;
+}
+
+// Belt-and-braces visitor id: use whichever of cookie/localStorage already has
+// it, generate a new UUID if neither does, then mirror the final value back
+// into both. Clearing only cookies OR only localStorage won't forget us.
+function getOrCreateVisitorId() {
+  const fromCookie = readVisitorCookie();
+  const fromStorage = localStorage.getItem(VISITOR_KEY) || "";
+  const id = fromCookie || fromStorage || crypto.randomUUID();
+  if (!fromCookie) writeVisitorCookie(id);
+  if (!fromStorage) localStorage.setItem(VISITOR_KEY, id);
+  return id;
+}
+
 class LikeManager {
   constructor() {
-    this.likes = this.loadLikes();
+    this.visitorId = getOrCreateVisitorId();
+    // Stale cache of last-seen counts — paints the UI instantly on load
+    // before the Worker response comes back.
+    this.state = this.loadCachedState();
+    // Prevents rapid double-clicks from racing two POSTs for the same article.
+    this.inFlight = new Set();
     this.init();
   }
 
   init() {
-    const likeButtons = document.querySelectorAll(".like-btn");
-    likeButtons.forEach((btn) => {
-      const articleId = btn.dataset.articleId;
-      if (articleId) {
-        this.updateLikeButton(btn, articleId);
-        btn.addEventListener("click", () => this.toggleLike(articleId));
-      }
+    const buttons = document.querySelectorAll(".like-btn");
+    const articleIds = new Set();
+    buttons.forEach((btn) => {
+      const id = btn.dataset.articleId;
+      if (!id) return;
+      articleIds.add(id);
+      this.paintButton(btn, id);
+      btn.addEventListener("click", () => this.toggle(id));
     });
+    if (articleIds.size > 0) {
+      this.refresh([...articleIds]);
+    }
   }
 
-  // Ephemeral, local, meaningless likes
-  loadLikes() {
+  loadCachedState() {
     try {
-      return JSON.parse(localStorage.getItem("blogLikes")) || {};
+      return JSON.parse(localStorage.getItem(LIKES_CACHE_KEY)) || {};
     } catch {
       return {};
     }
   }
 
-  saveLikes() {
-    localStorage.setItem("blogLikes", JSON.stringify(this.likes));
+  saveCachedState() {
+    localStorage.setItem(LIKES_CACHE_KEY, JSON.stringify(this.state));
   }
 
-  toggleLike(articleId) {
-    if (!this.likes[articleId]) {
-      this.likes[articleId] = { count: 0, liked: false };
+  // Batch GET — one round-trip for every article id on the current page.
+  async refresh(ids) {
+    const url = new URL(`${LIKES_API_BASE}/likes`);
+    url.searchParams.set("ids", ids.join(","));
+    url.searchParams.set("visitorId", this.visitorId);
+    try {
+      const res = await fetch(url.toString());
+      if (!res.ok) return;
+      const data = await res.json();
+      Object.assign(this.state, data);
+      this.saveCachedState();
+      ids.forEach((id) => this.paintAll(id));
+    } catch (err) {
+      // Offline / CORS / Worker down — keep stale cache and move on quietly.
+      console.warn("likes: failed to load counts", err);
     }
+  }
 
-    if (this.likes[articleId].liked) {
-      this.likes[articleId].count = Math.max(
-        0,
-        this.likes[articleId].count - 1,
+  // Toggle flow: flip the UI optimistically, POST to the Worker, reconcile
+  // with the authoritative response (or revert if the request failed).
+  async toggle(articleId) {
+    if (this.inFlight.has(articleId)) return;
+    this.inFlight.add(articleId);
+
+    const before = this.state[articleId] || { count: 0, liked: false };
+    const optimistic = {
+      liked: !before.liked,
+      count: Math.max(0, before.count + (before.liked ? -1 : 1)),
+    };
+    this.state[articleId] = optimistic;
+    this.paintAll(articleId);
+
+    try {
+      const res = await fetch(
+        `${LIKES_API_BASE}/likes/${encodeURIComponent(articleId)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ visitorId: this.visitorId }),
+        },
       );
-      this.likes[articleId].liked = false;
-    } else {
-      this.likes[articleId].count += 69;
-      this.likes[articleId].liked = true;
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      this.state[articleId] = data;
+      this.saveCachedState();
+      this.paintAll(articleId);
+      // Easter egg: the +69 joke from the old fake-likes code lives on, but
+      // only in the devtools console when someone actually likes something.
+      if (data.liked) {
+        console.log("%c+69 nice.", "color:#ff69b4;font-weight:700");
+      }
+    } catch (err) {
+      console.warn("likes: toggle failed, reverting", err);
+      this.state[articleId] = before;
+      this.paintAll(articleId);
+    } finally {
+      this.inFlight.delete(articleId);
     }
-
-    this.saveLikes();
-    this.updateAllLikeButtons(articleId);
   }
 
-  updateAllLikeButtons(articleId) {
-    const buttons = document.querySelectorAll(
-      `[data-article-id="${articleId}"]`,
-    );
-    buttons.forEach((btn) => this.updateLikeButton(btn, articleId));
+  paintAll(articleId) {
+    document
+      .querySelectorAll(`.like-btn[data-article-id="${articleId}"]`)
+      .forEach((btn) => this.paintButton(btn, articleId));
   }
 
-  updateLikeButton(button, articleId) {
-    const likeData = this.likes[articleId] || { count: 0, liked: false };
+  paintButton(button, articleId) {
+    const data = this.state[articleId] || { count: 0, liked: false };
     const likeCount = button.parentElement.querySelector(".like-count");
-
-    button.classList.toggle("liked", likeData.liked);
-    button.innerHTML = `${likeData.liked ? "❤️" : "🤍"} ${likeData.liked ? "Liked" : "Like"
-      }`;
-
+    button.classList.toggle("liked", data.liked);
+    button.innerHTML = `${data.liked ? "❤️" : "🤍"} ${data.liked ? "Liked" : "Like"}`;
     if (likeCount) {
-      likeCount.textContent = `${likeData.count} like${likeData.count !== 1 ? "s" : ""
-        }`;
+      likeCount.textContent = `${data.count} like${data.count !== 1 ? "s" : ""}`;
     }
   }
 }
