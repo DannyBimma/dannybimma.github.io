@@ -5,41 +5,46 @@ class ThemeManager {
   }
 
   init() {
-    const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = globalThis.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
+    // Nuke old theme setting from previous visitors
+    localStorage.removeItem("theme");
 
-    if (savedTheme) {
-      this.setTheme(savedTheme);
-    } else {
-      this.setTheme(systemPrefersDark ? "dark" : "light");
-    }
+    this.setTheme(this.resolveTheme());
 
-    // Listen for changes
+    // Follow system flips while the page is open
     globalThis
       .matchMedia("(prefers-color-scheme: dark)")
       .addEventListener("change", (e) => {
-        if (!localStorage.getItem("theme")) {
+        if (!sessionStorage.getItem("theme")) {
           this.setTheme(e.matches ? "dark" : "light");
         }
       });
   }
 
-  setTheme(theme) {
+  // Session override wins for the lifetime of this tab; otherwise mirror
+  // OS or browser preference on each page load
+  resolveTheme() {
+    const override = sessionStorage.getItem("theme");
+    if (override) return override;
+    return globalThis.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  }
+
+  setTheme(theme, persist = false) {
     if (theme === "light") {
       document.documentElement.setAttribute("data-theme", "light");
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
-    localStorage.setItem("theme", theme);
+    // Only the manual toggle persists
+    if (persist) sessionStorage.setItem("theme", theme);
     this.updateThemeToggle(theme);
   }
 
   toggleTheme() {
-    const currentTheme = localStorage.getItem("theme") || "dark";
+    const currentTheme = this.resolveTheme();
     const newTheme = currentTheme === "dark" ? "light" : "dark";
-    this.setTheme(newTheme);
+    this.setTheme(newTheme, true);
   }
 
   updateThemeToggle(theme) {
