@@ -14,7 +14,7 @@ A minimalist blog and developer portfolio built with vanilla HTML, CSS, and Java
 ### Functionality
 
 - **Sticky Navigation**: Header stays visible while scrolling, collapses on mobile
-- **Like System**: JavaScript-powered like buttons with localStorage persistence
+- **Like System**: Real per-article like counts backed by a Cloudflare Worker + KV, with per-visitor unlike support (visitor id stored in a first-party cookie + localStorage)
 - **Contact Form**: Email integration using mailto links with form validation
 - **Smooth Animations**: Fade-in effects and smooth transitions
 - **SEO Optimized**: Proper meta tags, semantic HTML, and Open Graph tags
@@ -31,7 +31,8 @@ A minimalist blog and developer portfolio built with vanilla HTML, CSS, and Java
 - **HTML5**: Semantic markup with proper accessibility
 - **CSS3**: Modern CSS with CSS Variables, Grid, and Flexbox
 - **Vanilla JavaScript**: No frameworks - pure ES6+ JavaScript
-- **localStorage**: Client-side data persistence for likes and theme preferences
+- **Cloudflare Worker + KV**: Serverless backend for the likes system (see `worker/`)
+- **localStorage + cookies**: Client-side persistence for theme preference and the anonymous visitor id
 
 ## 📁 Project Structure
 
@@ -44,12 +45,14 @@ blog-page/
 ├── css/
 │   └── style.css           # Main stylesheet with themes
 ├── js/
-│   └── script.js           # Interactive functionality
+│   └── script.js           # Interactive functionality (theme, nav, likes)
 ├── assets/
-│   └── images/             # Image assets
+│   ├── images/             # Image assets
+│   └── videos/
 ├── archives/               # Archived blog articles
-│   └── css-grid-mastery.html
-└── projects/               # Project documentation
+└── worker/                 # Cloudflare Worker + KV backend for likes
+    ├── src/index.js
+    └── wrangler.toml
 ```
 
 ## 🛠️ Setup & Usage
@@ -72,7 +75,7 @@ blog-page/
 1. Create a new HTML file in the `archives/` folder
 2. Use the same structure as `css-grid-mastery.html`
 3. Update `articles.html` to include a link to your new article
-4. Add a unique `data-article-id` for the like system
+4. Add a unique `data-article-id` for the like system (lowercase kebab-case, matching `/^[a-z0-9][a-z0-9-]{0,63}$/`). New ids are created lazily in KV the first time someone likes the article — no Worker changes needed.
 
 ## 🎨 Design Philosophy
 
@@ -95,7 +98,7 @@ This blog embraces the **terminal aesthetic** with:
 
 - **Modern Browsers**: Full feature support (Chrome, Firefox, Safari, Edge)
 - **CSS Grid**: Primary layout method with flexbox fallbacks
-- **localStorage**: Like counts and theme preferences persist across sessions
+- **localStorage + cookies**: Theme preference and anonymous visitor id persist across sessions. Real like counts live on the Worker, not the browser.
 - **ES6+ JavaScript**: Modern JavaScript features with graceful degradation
 
 ## 🚀 Deployment
