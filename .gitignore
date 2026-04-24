@@ -1,0 +1,10 @@
+# macOS dir metadata — noisy, leaks filenames, never useful in the repo
+.DS_Store
+
+# Logs
+*.log
+
+# Local env files — belt-and-braces; the worker/ dir also ignores its own
+.env
+.env.*
+.dev.vars

@@ -4,6 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Security headers. GitHub Pages won't let me set real HTTP headers, so
+       these <meta> equivalents are what's available. CSP locks every kind of
+       subresource down to same-origin, with one exception for the Likes Worker
+       (needed for fetch to the workers.dev origin). 'unsafe-inline' on
+       style-src is required because several pages use inline style=""
+       attributes (would need a refactor to drop entirely). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://dannybimma-likes.dantrotman92.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:;" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
   <meta name="description"
     content="DannyBimma's Blog: Software development thoughts, projects, and musings into the world of technology" />
   <meta name="author" content="Danny Bimma" />

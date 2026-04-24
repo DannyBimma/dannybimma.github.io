@@ -5,11 +5,12 @@
 //
 // KV layout (one big flat key-value store, no schema):
 //   count:<articleId>              -> total like count (string integer)
-//   visitor:<visitorId>:<articleId> -> "1" if that visitor currently likes it
-//   rl:<ip>                         -> per-IP rate-limit counter (auto-expires)
+//   visitor:<visitorId>:<articleId> -> "1" if that visitor currently likes it (auto-expires after ~400 days)
+//   rl:<ip>                         -> per-IP write rate-limit counter (auto-expires)
+//   rlr:<ip>                        -> per-IP read rate-limit counter (auto-expires)
 
 // Only these origins are allowed to call the Worker.
-// GitHub Pages for prod, localhost for when you're testing the site locally.
+// GitHub Pages for prod, localhost for when testing the site locally.
 const ALLOWED_ORIGINS = [
   "https://dannybimma.github.io",
   "http://localhost:8000",
@@ -22,7 +23,7 @@ const UUID_RE =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 // Article IDs must be lowercase kebab-case and reasonably short.
-// This matches the data-article-id values on your blog (e.g. "ai-is-cocaine").
+// This matches the data-article-id values on the blog (e.g. "ai-is-cocaine").
 const ARTICLE_ID_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 // Rate limit: up to 30 toggle requests per minute from the same IP.
@@ -30,9 +31,20 @@ const ARTICLE_ID_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
 const RATE_LIMIT_WINDOW_SECONDS = 60;
 const RATE_LIMIT_MAX = 30;
 
-// Build the CORS headers we attach to every response.
-// If the caller's origin isn't in our allow-list we still need to send *some*
-// Access-Control-Allow-Origin, so we fall back to the prod origin.
+// Separate, much more generous limit for the read path (GET /likes).
+// Reads are cheap but still cost KV reads + Worker invocations; 120/min per IP
+// is plenty for a real human bouncing around the blog, but stops spam from
+// draining free-tier quotas.
+const READ_RATE_LIMIT_MAX = 120;
+
+// TTL for `visitor:*:*` keys. ~400 days — matches the browser cookie lifetime
+// ballpark, stops KV storage growing forever if an attacker cycles UUIDs.
+// A returning visitor who likes again just resets the TTL.
+const VISITOR_KEY_TTL_SECONDS = 60 * 60 * 24 * 400;
+
+// Build the CORS headers attached to every response.
+// If the caller's origin isn't in the allow-list; still to send *some*
+// Access-Control-Allow-Origin, to fall back to the prod origin.
 function corsHeaders(origin) {
   const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
   return {
@@ -60,12 +72,13 @@ function json(body, init, origin) {
 
 // Simple sliding-window rate limiter keyed by IP.
 // Reads the current count, bumps it, and writes it back with a TTL equal to
-// the window size. If we're already at the max, we reject.
-async function rateLimit(env, ip) {
-  const key = `rl:${ip}`;
+// the window size. If already at the max, then reject.
+// `prefix` keeps separate buckets for reads vs writes (rl: vs rlr:).
+async function rateLimit(env, ip, prefix, max) {
+  const key = `${prefix}:${ip}`;
   const raw = await env.LIKES.get(key);
   const count = raw ? parseInt(raw, 10) : 0;
-  if (count >= RATE_LIMIT_MAX) return false;
+  if (count >= max) return false;
   await env.LIKES.put(key, String(count + 1), {
     expirationTtl: RATE_LIMIT_WINDOW_SECONDS,
   });
@@ -81,7 +94,7 @@ async function readCounts(env, ids, visitorId) {
     ids.map(async (id) => {
       const [countRaw, likedRaw] = await Promise.all([
         env.LIKES.get(`count:${id}`),
-        // If no visitorId was supplied we skip the "did you like this" check
+        // If no visitorId was supplied, skip the "did you like this" check
         // and leave liked=false — the front-end treats that as "not yet liked".
         visitorId ? env.LIKES.get(`visitor:${visitorId}:${id}`) : null,
       ]);
@@ -112,7 +125,10 @@ async function toggleLike(env, articleId, visitorId) {
     return { count: next, liked: false };
   }
 
-  await env.LIKES.put(visitorKey, "1");
+  // Stamp the visitor key with a TTL so abandoned UUIDs don't live forever in
+  // KV. Active visitors re-set the TTL every time they toggle, so real users
+  // never lose their like state.
+  await env.LIKES.put(visitorKey, "1", { expirationTtl: VISITOR_KEY_TTL_SECONDS });
   const next = currentCount + 1;
   await env.LIKES.put(countKey, String(next));
   return { count: next, liked: true };
@@ -141,6 +157,12 @@ export default {
     // --- GET /likes?ids=a,b,c&visitorId=<uuid> -------------------------------
     // Batch endpoint the page hits once on load to paint all like counts.
     if (request.method === "GET" && url.pathname === "/likes") {
+      // Generous per-IP read limit. Real visitors hit this once per page load;
+      // a spammer trying to burn our KV read + Worker invocation quotas gets
+      // cut off at 120/min per IP.
+      if (!(await rateLimit(env, ip, "rlr", READ_RATE_LIMIT_MAX))) {
+        return json({ error: "rate limited" }, { status: 429 }, origin);
+      }
       const idsParam = url.searchParams.get("ids") || "";
       const visitorId = url.searchParams.get("visitorId") || "";
       // Split the comma list, validate each id against the regex, cap at 50
@@ -153,7 +175,7 @@ export default {
       if (ids.length === 0) {
         return json({ error: "no valid ids" }, { status: 400 }, origin);
       }
-      // visitorId is optional on GET — if it's missing/garbage we just don't
+      // visitorId is optional on GET — if it's missing/garbage, just don't
       // populate the "liked" flag.
       const vid = UUID_RE.test(visitorId) ? visitorId : "";
       const counts = await readCounts(env, ids, vid);
@@ -177,9 +199,9 @@ export default {
       if (!UUID_RE.test(visitorId)) {
         return json({ error: "invalid visitor id" }, { status: 400 }, origin);
       }
-      // Only rate-limit the write path — reads are cheap and the page needs
-      // them to work reliably on every load.
-      if (!(await rateLimit(env, ip))) {
+      // Tighter per-IP write limit — writes cost more KV quota and get abused
+      // faster. Real users clicking like buttons never get close to 30/min.
+      if (!(await rateLimit(env, ip, "rl", RATE_LIMIT_MAX))) {
         return json({ error: "rate limited" }, { status: 429 }, origin);
       }
       const result = await toggleLike(env, articleId, visitorId);
