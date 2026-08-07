@@ -37,11 +37,15 @@ A minimalist blog and developer portfolio built with vanilla HTML, CSS, and Java
 ## 📁 Project Structure
 
 ```
-blog-page/
+dannybimma.github.io/
 ├── index.html              # Home page with latest article
 ├── articles.html           # Article archive listing
 ├── projects.html           # Developer projects showcase
 ├── about.html              # Bio and contact information
+├── 404.html                # Error page (root-absolute paths — see file header)
+├── .htaccess               # Apache config: HTTPS, security headers, gzip, caching
+├── robots.txt
+├── sitemap.xml
 ├── css/
 │   └── style.css           # Main stylesheet with themes
 ├── js/
@@ -50,18 +54,26 @@ blog-page/
 │   ├── images/             # Image assets
 │   └── videos/
 ├── archives/               # Archived blog articles
+├── scripts/
+│   └── build-redirects.sh  # Generates the gh-pages redirect stubs
+├── .github/workflows/
+│   └── deploy.yml          # Bluehost upload + redirect-stub publish
 └── worker/                 # Cloudflare Worker + KV backend for likes
     ├── src/index.js
     └── wrangler.toml
 ```
 
+Everything above `scripts/` ships to Bluehost. `scripts/`, `.github/`, `worker/`, `README.md`, and `LICENSE` are stripped out at deploy time.
+
 ## 🛠️ Setup & Usage
 
 ### Local Development
 
-1. Clone or download the repository
-2. Open `index.html` in your browser
-3. No build process required - works immediately!
+1. Clone the repository
+2. `python3 -m http.server 8000`
+3. Open <http://localhost:8000>
+
+No build process required. Serve it rather than opening `index.html` off disk — over `file://` the CSP blocks the stylesheet and the likes fetch, so the page renders unstyled and the buttons do nothing. Port 8000 matters too: it's what the Worker's CORS allow-list expects.
 
 ### Customization
 
@@ -103,12 +115,46 @@ This blog embraces the **terminal aesthetic** with:
 
 ## 🚀 Deployment
 
-This is a static site that can be deployed anywhere:
+The site lives at **[dannybimma.blog](https://dannybimma.blog)**, hosted on **Bluehost** (Apache shared hosting), with the domain registered at GoDaddy.
 
-- **GitHub Pages**: Simply push to a repository with Pages enabled
-- **Netlify**: Drag and drop the folder for instant deployment
-- **Vercel**: Connect your repository for automatic deployments
-- **Any Web Server**: Upload files to any hosting provider
+Push to `main` and [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) does both halves of the deploy:
+
+1. **Bluehost** — stages the tracked files into a clean tree (`git archive`, minus `worker/`, `scripts/`, and repo furniture) and mirrors it to `public_html` over SFTP with `lftp`.
+2. **GitHub Pages** — regenerates the redirect stubs and force-pushes them to the `gh-pages` branch. The old `dannybimma.github.io` address serves nothing but redirects to the new domain now.
+
+### Required repository secrets
+
+| Secret | What it is |
+| --- | --- |
+| `BLUEHOST_HOST` | SFTP hostname, e.g. `dannybimma.blog` or the server hostname from cPanel |
+| `BLUEHOST_USER` | cPanel / SSH username |
+| `BLUEHOST_PATH` | Site root on the server, normally `public_html` |
+| `BLUEHOST_PORT` | SSH port (optional, defaults to `22`) |
+| `BLUEHOST_SSH_KEY` | Private half of a deploy keypair |
+| `BLUEHOST_KNOWN_HOSTS` | Output of `ssh-keyscan -p 22 <host>`, so the host key is pinned |
+
+The mirror runs with `--delete`, so **the server is made to match the repo exactly** — anything sitting in `public_html` that isn't in the repo gets removed. The workflow refuses to run if `BLUEHOST_PATH` is empty or set to something as broad as `/` or `~`.
+
+To preview a deploy without writing anything, run the workflow manually from the Actions tab with **dry run** ticked.
+
+### Apache config
+
+[`.htaccess`](.htaccess) does the things GitHub Pages used to handle invisibly, plus the one thing it couldn't:
+
+- Forces HTTPS and strips `www`
+- Sets **real** security headers — CSP, HSTS, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` — instead of the `<meta http-equiv>` approximations Pages forced
+- gzip via `mod_deflate`, cache lifetimes via `mod_expires`
+- `ErrorDocument 404 /404.html`
+
+The CSP in `.htaccess` and the `<meta>` copies in the HTML files must be kept in sync. If they disagree, browsers enforce whichever is stricter and you get a blocked resource with no obvious cause.
+
+### Local development
+
+```sh
+python3 -m http.server 8000
+```
+
+Port 8000 specifically — it's on the Worker's CORS allow-list, so likes work locally.
 
 ## 📞 Contact Information
 

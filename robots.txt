@@ -1,0 +1,10 @@
+# robots.txt for dannybimma.blog
+
+User-agent: *
+Allow: /
+
+# The 404 page is already noindex'd via a meta tag, but there's no reason to
+# spend crawl budget on it either.
+Disallow: /404.html
+
+Sitemap: https://dannybimma.blog/sitemap.xml

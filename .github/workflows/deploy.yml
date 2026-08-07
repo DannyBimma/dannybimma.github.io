@@ -1,0 +1,145 @@
+name: Deploy
+
+# Push to main and this does two things:
+#   1. uploads the site to Bluehost, which is where dannybimma.blog is served from
+#   2. rebuilds the redirect stubs on the gh-pages branch, which is all the old
+#      dannybimma.github.io address serves now
+#
+# Deliberately no third-party actions in here beyond actions/checkout. A deploy
+# workflow holds the keys to the webhost, and every marketplace action added is
+# another repo that could be compromised into reading those secrets.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "List what would change on Bluehost without uploading anything"
+        type: boolean
+        default: false
+
+# Two deploys racing each other into the same public_html is a bad time.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  bluehost:
+    name: Upload site to Bluehost
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install lftp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+      # Build the exact tree that should end up in public_html, rather than
+      # mirroring the repo root and trying to exclude things. git archive gives
+      # only tracked files (so no .DS_Store, no worker/node_modules, no local
+      # junk), then the repo-furniture directories come back off the top.
+      # This matters because the mirror below runs with --delete: whatever is
+      # not in _site gets removed from the server.
+      - name: Stage the deployable tree
+        run: |
+          mkdir -p _site
+          git archive HEAD | tar -x -C _site
+          rm -rf _site/worker _site/scripts _site/.github
+          rm -f  _site/*.md _site/LICENSE _site/.gitignore
+          echo "--- files staged for upload ---"
+          find _site -type f | sort
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.BLUEHOST_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Pinned host key, so a DNS or routing hijack can't quietly get us to
+          # hand the site (and the key) to someone else. Generate the value with:
+          #   ssh-keyscan -p 22 <your-bluehost-host>
+          printf '%s\n' "${{ secrets.BLUEHOST_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Mirror to Bluehost
+        env:
+          HOST: ${{ secrets.BLUEHOST_HOST }}
+          USER: ${{ secrets.BLUEHOST_USER }}
+          PORT: ${{ secrets.BLUEHOST_PORT }}
+          REMOTE_PATH: ${{ secrets.BLUEHOST_PATH }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          PORT="${PORT:-22}"
+
+          # Fail loudly before connecting if any secret is missing. This guard
+          # exists specifically because of --delete below: an empty REMOTE_PATH
+          # would leave lftp mirroring into whatever the login lands in, which
+          # on Bluehost is the SSH home directory, and then deleting everything
+          # in it that isn't part of the site.
+          for v in HOST USER REMOTE_PATH; do
+            if [ -z "${!v:-}" ]; then
+              echo "::error::Required secret BLUEHOST_$v is not set. Refusing to deploy."
+              exit 1
+            fi
+          done
+
+          case "$REMOTE_PATH" in
+            /|"~"|"~/"|.|./)
+              echo "::error::BLUEHOST_PATH=$REMOTE_PATH is too broad for a --delete mirror. Point it at the site root, e.g. public_html."
+              exit 1
+              ;;
+          esac
+
+          # --delete makes the server match _site exactly. That is what we want
+          # for a static site, but it does mean anything else sitting in
+          # REMOTE_PATH will be removed. Point BLUEHOST_PATH at the site root
+          # (e.g. public_html) and keep nothing else in there by hand.
+          MIRROR_FLAGS="--reverse --delete --verbose --parallel=4 \
+            --exclude-glob .DS_Store"
+
+          if [ "${DRY_RUN:-false}" = "true" ]; then
+            echo "DRY RUN — nothing will be written to the server."
+            MIRROR_FLAGS="$MIRROR_FLAGS --dry-run"
+          fi
+
+          lftp -c "
+            set sftp:connect-program 'ssh -a -x -p $PORT -i ~/.ssh/deploy_key -o UserKnownHostsFile=~/.ssh/known_hosts -o StrictHostKeyChecking=yes';
+            set net:max-retries 3;
+            set net:timeout 20;
+            open sftp://$USER@$HOST;
+            mirror $MIRROR_FLAGS _site/ $REMOTE_PATH;
+            bye
+          "
+
+  pages-redirects:
+    name: Publish redirect stubs to GitHub Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build stubs
+        run: bash scripts/build-redirects.sh _redirects_build
+
+      # Force-pushes a single-commit gh-pages branch. No history is kept because
+      # there's nothing worth keeping — the whole branch is generated output.
+      - name: Push to gh-pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd _redirects_build
+          git init -q -b gh-pages
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Rebuild redirect stubs from ${GITHUB_SHA::7}"
+          git push -q --force \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            gh-pages

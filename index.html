@@ -5,13 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Security headers. GitHub Pages won't let me set real HTTP headers, so
-       these <meta> equivalents are what's available. CSP locks every kind of
-       subresource down to same-origin, with one exception for the Likes Worker
-       (needed for fetch to the workers.dev origin). 'unsafe-inline' on
-       style-src is required because several pages use inline style=""
-       attributes (would need a refactor to drop entirely). -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://dannybimma-likes.dantrotman92.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:;" />
+  <!-- Security headers. On Bluehost these are set for real in .htaccess — the
+       <meta> copies below are a fallback for when mod_headers is off or a page
+       gets opened straight off disk. Keep the two in sync; if they disagree the
+       browser applies whichever is stricter, which makes for confusing bugs.
+       CSP locks subresources down to same-origin, with four exceptions: the
+       Likes Worker (fetch to workers.dev), Google Fonts (the @import at the top
+       of style.css plus the font files on gstatic), and substackcdn for the
+       images in archives/poke_play.html. 'unsafe-inline' on style-src is
+       required because several pages use inline style="" attributes (would need
+       a refactor to drop entirely). Note frame-ancestors is ignored in <meta>
+       and only actually works via the .htaccess header. -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data: https://substackcdn.com; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src https://dannybimma-likes.dantrotman92.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:;" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
 
@@ -23,37 +29,41 @@
 
   <!-- Open Graph / FB -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://dannybimma.github.io" />
+  <meta property="og:url" content="https://dannybimma.blog" />
   <meta property="og:title" content="DannyBimma's Dev Blog/Portfolio" />
   <meta property="og:description"
     content="Developer thoughts, projects, and insights into modern software development" />
-  <meta property="og:image" content="https://dannybimma.github.io/assets/images/hero_img.JPG" />
+  <meta property="og:image" content="https://dannybimma.blog/assets/images/hero_img.JPG" />
 
   <!-- BirdApp -->
   <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content="https://dannybimma.github.io" />
+  <meta property="twitter:url" content="https://dannybimma.blog" />
   <meta property="twitter:title" content="DannyBimma's Dev Blog/Portfolio" />
   <meta property="twitter:description"
     content="Developer thoughts, projects, and insights into modern software development" />
-  <meta property="twitter:image" content="https://dannybimma.github.io/assets/images/hero_img.JPG" />
+  <meta property="twitter:image" content="https://dannybimma.blog/assets/images/hero_img.JPG" />
 
+  <!-- Canonical URL. Tells search engines this is the one true address for
+       the page, so the old github.io copies don't compete with it while the
+       domain move settles. -->
+  <link rel="canonical" href="https://dannybimma.blog/" />
   <title>Witch Hat and the Magic of Computer Science - The Sun God Times</title>
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="icon"
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>" />
-  <script src="../js/script.js"></script>
+  <script src="js/script.js"></script>
 </head>
 
 <body>
   <header class="site-header">
     <nav>
-      <a href="../index.html" class="logo">/dannybimma/dev</a>
+      <a href="index.html" class="logo">/dannybimma/dev</a>
 
       <ul class="nav-links">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../articles.html">Articles</a></li>
-        <li><a href="../projects.html">Projects</a></li>
-        <li><a href="../about.html">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="about.html">About</a></li>
       </ul>
 
       <div class="nav-controls">
@@ -83,7 +93,7 @@
           than a few aspects greatly impressed me about this serialisation.
         </p>
 
-        <img class="article-image" src="../assets/images/witch-hat/witch-hat-cover.jpg"
+        <img class="article-image" src="assets/images/witch-hat/witch-hat-cover.jpg"
           alt="Witch Hat Atelier manga cover" />
 
         <p>
@@ -95,7 +105,7 @@
           initial few pages.
         </p>
 
-        <img class="article-image" src="../assets/images/witch-hat/panel-manipulation.jpeg"
+        <img class="article-image" src="assets/images/witch-hat/panel-manipulation.jpeg"
           alt="Panel manipulation in Witch Hat Atelier" />
 
         <p>
@@ -108,7 +118,7 @@
           detailed inner workings of the power system itself.
         </p>
 
-        <img class="article-image" src="../assets/images/witch-hat/magic-explanation.WEBP"
+        <img class="article-image" src="assets/images/witch-hat/magic-explanation.WEBP"
           alt="Magic system explanation" />
 
         <p>
@@ -136,7 +146,7 @@
           science of computers is pure magic, and some of it's forbidden!
         </p>
 
-        <img class="article-image" src="../assets/images/witch-hat/tech-magic-lord.jpeg" alt="Tech magic lord" />
+        <img class="article-image" src="assets/images/witch-hat/tech-magic-lord.jpeg" alt="Tech magic lord" />
 
         <p>
           The way Witch Hat mirrors the world of tech not only resides in
@@ -156,7 +166,7 @@
           verbatim, for the tech industry in our world.
         </p>
 
-        <img class="article-image" src="../assets/images/witch-hat/witch-hat-dude.jpeg"
+        <img class="article-image" src="assets/images/witch-hat/witch-hat-dude.jpeg"
           alt="Character from Witch Hat Atelier" />
 
         <p>
@@ -186,7 +196,7 @@
           riced-out config files on both ends!!
         </p>
 
-        <img class="article-image" src="../assets/images/witch-hat/witch-hat-essay.png"
+        <img class="article-image" src="assets/images/witch-hat/witch-hat-essay.png"
           alt="Witch Hat Atelier in NeoVim" />
 
         <p>

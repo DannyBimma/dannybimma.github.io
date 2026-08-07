@@ -10,8 +10,14 @@
 //   rlr:<ip>                        -> per-IP read rate-limit counter (auto-expires)
 
 // Only these origins are allowed to call the Worker.
-// GitHub Pages for prod, localhost for when testing the site locally.
+// dannybimma.blog is prod now. The www variant is here because Apache 301s it
+// to the bare domain, but a browser can still fire a CORS preflight from the
+// www origin before it follows that redirect. github.io stays on the list until
+// DNS has fully settled and the old Pages site is nothing but redirect stubs —
+// safe to delete after that. localhost is for testing the site locally.
 const ALLOWED_ORIGINS = [
+  "https://dannybimma.blog",
+  "https://www.dannybimma.blog",
   "https://dannybimma.github.io",
   "http://localhost:8000",
   "http://127.0.0.1:8000",

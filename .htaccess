@@ -1,0 +1,148 @@
+# Apache config for dannybimma.blog on Bluehost.
+# -----------------------------------------------
+# This file does the jobs GitHub Pages used to do invisibly (gzip, sensible
+# caching, a 404 page) plus the one thing it never could: set real HTTP security
+# headers instead of <meta http-equiv> approximations.
+#
+# Every block is wrapped in <IfModule> so that if Bluehost ever disables a
+# module the site degrades instead of throwing a 500.
+
+DirectoryIndex index.html
+
+# No directory listings. Without this, hitting /assets/images/ would hand a
+# stranger a browsable index of the whole folder.
+Options -Indexes
+
+# ---------------------------------------------------------------------------
+# Canonical URL: https, no www
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Force HTTPS. Bluehost terminates TLS at a proxy on some plans, so %{HTTPS}
+  # alone isn't trustworthy — X-Forwarded-Proto is the fallback signal.
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://dannybimma.blog%{REQUEST_URI} [L,R=301]
+
+  # Strip www. Kept as a separate rule rather than being folded into the one
+  # above — worst case http://www costs two hops, but the logic stays readable.
+  RewriteCond %{HTTP_HOST} ^www\.dannybimma\.blog$ [NC]
+  RewriteRule ^ https://dannybimma.blog%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Security headers
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Keep this CSP identical to the <meta http-equiv> copy in the HTML files.
+  # If the two ever disagree the browser enforces whichever is stricter, and
+  # you get a blocked resource with no obvious cause.
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https://substackcdn.com; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src https://dannybimma-likes.dantrotman92.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:;"
+
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # frame-ancestors in the CSP above is the modern version of this, but
+  # X-Frame-Options still covers older browsers that ignore it.
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Nothing here needs a camera, mic, or location, so switch them all off.
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()"
+
+  # HSTS: tells browsers to refuse plain http for this domain for a year.
+  # Heads up, this is a real commitment — a browser that has seen this header
+  # will not let you serve the site over http again until it expires. To back
+  # out, set max-age=0 and wait for the old value to age out of caches.
+  # 'preload' and 'includeSubDomains' are deliberately left off; only add them
+  # once you're sure every current and future subdomain is https-only.
+  Header always set Strict-Transport-Security "max-age=31536000"
+
+  # The visitor-id cookie is set client-side in js/script.js so we can't mark it
+  # HttpOnly, but nothing else should leak either.
+  Header onsuccess unset X-Powered-By
+  Header always unset X-Powered-By
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+# Filenames here aren't content-hashed, so cache lifetimes are a tradeoff
+# between speed and how long a deploy takes to actually reach people.
+# Images basically never change once published, so they get a year. CSS and JS
+# do change, so they get an hour — long enough to help within a session, short
+# enough that a deploy lands the same day. If you ever add ?v=<hash> query
+# strings to the css/js links, bump those to a year too.
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+  ExpiresByType video/quicktime           "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+
+  ExpiresByType text/css                  "access plus 1 hour"
+  ExpiresByType application/javascript    "access plus 1 hour"
+  ExpiresByType text/javascript           "access plus 1 hour"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # HTML always revalidates, so a new post shows up the moment it's deployed.
+  # no-cache doesn't mean "don't store" — the browser keeps the copy and just
+  # asks "changed?" first, which is a cheap 304 when nothing has.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Compression
+# ---------------------------------------------------------------------------
+# GitHub Pages gzipped text responses automatically. Apache doesn't unless told.
+# Images and video are already compressed, so they're left alone.
+# Both guards are needed and the mod_filter one is the important half:
+# AddOutputFilterByType is a mod_filter directive, not a mod_deflate one. Guard
+# on mod_deflate alone and a server that has deflate but not filter throws
+# "Invalid command 'AddOutputFilterByType'" — which is a 500 on every page, not
+# a graceful degradation.
+<IfModule mod_deflate.c>
+  <IfModule mod_filter.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+    AddOutputFilterByType DEFLATE application/javascript text/javascript
+    AddOutputFilterByType DEFLATE application/json application/xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+  </IfModule>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# MIME types
+# ---------------------------------------------------------------------------
+# Older Apache builds don't know webp, and there's a .WEBP (uppercase) in
+# assets/images/witch-hat/. AddType is case-insensitive so it covers both.
+<IfModule mod_mime.c>
+  AddType image/webp   .webp
+  AddType video/quicktime .mov
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Error pages
+# ---------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# ---------------------------------------------------------------------------
+# Lock down files that have no business being served
+# ---------------------------------------------------------------------------
+# Dotfiles: .htaccess itself, plus anything like .env that ever gets uploaded
+# by accident. The deploy excludes these, this is the second line of defence.
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# Repo furniture. These get excluded at deploy time too, but if one slips
+# through it shouldn't be readable.
+<FilesMatch "\.(md|toml|json|lock|yml|yaml)$">
+  Require all denied
+</FilesMatch>

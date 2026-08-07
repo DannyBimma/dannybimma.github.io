@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Security headers (see index.html for the full explanation). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://substackcdn.com; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src https://dannybimma-likes.dantrotman92.workers.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self' mailto:;" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta name="description" content="Page not found - The Sun God Times" />
+  <!-- No canonical here, and keep it out of the index — a 404 that gets
+       indexed is worse than no 404 page at all. -->
+  <meta name="robots" content="noindex" />
+
+  <title>404 - The Sun God Times</title>
+
+  <!-- Every path below is root-absolute on purpose. Apache serves this file for
+       a miss at any depth (/archives/typo.html included) while the browser URL
+       stays on the path that missed, so a relative "css/style.css" would try to
+       load /archives/css/style.css and come back empty. -->
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>" />
+  <script src="/js/script.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav>
+      <a href="/index.html" class="logo">/dannybimma/dev</a>
+
+      <ul class="nav-links">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/articles.html">Articles</a></li>
+        <li><a href="/projects.html">Projects</a></li>
+        <li><a href="/about.html">About</a></li>
+      </ul>
+
+      <div class="nav-controls">
+        <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        <button class="hamburger" aria-label="Toggle navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <article class="featured-article">
+      <header class="article-header">
+        <h1>404 — Page Not Found</h1>
+        <div class="article-meta">
+          Error 404 // the requested path does not exist
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p>
+          Whatever you were looking for isn't here. Either it moved, it never
+          existed, or you've found a typo of mine in the wild.
+        </p>
+
+        <p>
+          If you followed a link from somewhere that used to work, it was
+          probably an old <code>dannybimma.github.io</code> address — this site
+          lives at <code>dannybimma.blog</code> now.
+        </p>
+
+        <p>
+          Try the <a href="/articles.html">articles archive</a>, have a look at
+          the <a href="/projects.html">projects</a>, or head
+          <a href="/index.html">back to the front page</a>.
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Danny Bimma. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://github.com/dannyBimma/" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+          GitHub
+        </a>
+        <a href="https://www.threads.com/@danny_bimma" target="_blank" rel="noopener noreferrer"
+          aria-label="Threads Profile">
+          Threads
+        </a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
